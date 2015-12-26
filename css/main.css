@@ -1,0 +1,17 @@
+﻿        .jumbotron{
+            background-color:#424242;
+        }
+        .navbar {
+            background-color:#232323;
+            margin-bottom: 0;
+            border-radius: 0;
+        }
+        body{
+            background-color:#424242;
+            color:#FFFFFF;
+            font-family:'Open Sans', sans-serif;
+        }
+        footer {
+            background-color:#232323;
+            padding: 25px;
+        }
