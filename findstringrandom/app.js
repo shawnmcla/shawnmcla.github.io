@@ -4,7 +4,7 @@ function getRandomChar() { return String.fromCharCode(Math.floor(Math.random() *
 var min = 65;
 var max = 91;
 var maxchars = 1000000000;
-var found = false;
+
 var log = [];
 var button = document.getElementById("btn");
 var input = document.getElementById("input");
@@ -18,9 +18,12 @@ button.onclick = function () {
 function findWord(wordToFind) {
     var word = wordToFind.toUpperCase();
     var progress = 0;
+    var total = 0;
+    var found = false;
     while (!found && log.length < maxchars) {
-        log.push(getRandomChar());
-        if (log[log.length - 1] === word[progress]) {
+        total++;
+        var letter = getRandomChar();
+        if (letter === word[progress]) {
             progress++;
             if (progress === word.length) {
                 found = true;
@@ -31,22 +34,11 @@ function findWord(wordToFind) {
     }
     if (found) {
         var node = document.createElement('div');
-        node.innerHTML = "Word " + word + " found after " + log.length + " characters!<br/><p>";
+        node.innerHTML = "Word " + word + " found after " + total + " characters!<br/><p>";
         output.appendChild(node);
-        console.log("Word found after " + log.length + " characters!");
-        reset();
-    } else {
-        var node = document.createElement('div');
-        node.innerHTML ="Max chars " + maxchars + " reached, word not found!";
-        output.appendChild(node);
-        console.log("Max chars " + maxchars + " reached, word not found!");
-        reset();
+        console.log("Word found after " + total + " characters!");
+    }else{
+        console.log('error');
     }
-}
-
-
-function reset() {
-    log = [];
-    found = false;
 }
 
