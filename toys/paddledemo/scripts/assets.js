@@ -3,8 +3,8 @@ let _Type = {
     "AUDIO": 1
 }
 
-const _imgdir = "../assets/images/";
-const _audiodir = "../assets/audio/";
+const _imgdir = "./assets/images/";
+const _audiodir = "./assets/audio/";
 
 class Asset {
     constructor(id, filename, type) {
