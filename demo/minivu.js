@@ -169,9 +169,7 @@ class miniVU {
     appendContent(content) {
         console.log(content);
         //content.forEach((node) => this.targetArea.appendChild(node));
-        for(var i = 0; i < content.length; content++){
-            this.targetArea.appendChild(content[i]);   
-        }
+        Array.prototype.forEach.call(content, (node) => this.targetArea.appendChild(node))
     }
     /** Append the raw HTML text to the target area */
     appendRaw(html) {
