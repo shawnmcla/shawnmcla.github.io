@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>miniVU</title>
+    <link rel="stylesheet" type="text/css" href="./styles.css" />
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li>
+                    <a href="#/aboutus">About Us</a>
+                </li>
+                <li>
+                    <a href="#/banana">Banana</a>
+                </li>
+                <li>
+                    <a href="#/potato">Potato</a>
+                </li>
+                <li>
+                    <a href="#/aaaaa">Missing Link</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div id="miniVUContent">
+            <h1>Content goes here</h1>
+            <h2> This is the target are for miniVU content</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis expedita id excepturi quo placeat odio
+                ducimus incidunt dolores, ipsam aperiam.</p>
+            <noscript>Please enable JavaScript to view content.</noscript>
+        </div>
+    </main>
+    <footer>
+        <div class="footer">© Copyright Lorem Ipsum 1998</div>
+    </footer>
+
+    <script src="./minivu.js"></script>
+    <script>
+        let m = new miniVU("#miniVUContent", "home", {
+            "changeTitle": true,
+            "titlePattern": "miniVU | {{miniVU title}}",
+            "customNotFound": "notfound",
+            "customTitles": {
+                "banana": "Benefits of bananas"
+            }
+        });
+    </script>
+</body>
+
+</html>
