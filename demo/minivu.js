@@ -209,7 +209,7 @@ class miniVU {
         if (view !== this.currentView) {
             this.loadHTMLContent(view + ".html")
                 .then((doc) => this.swapContent(view, doc))
-                .catch((err) => this.errorViewNotfound(view, err));
+                //.catch((err) => this.errorViewNotfound(view, err));
         }
     }
 
