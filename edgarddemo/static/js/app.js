@@ -395,7 +395,7 @@ var app = new Vue({
         },
         cancel: function() {
             if (confirm("Annuler la création du vol?")) {
-                location.href = "/";
+                location.href = "./";
             }
         },
         goBack: function() {
@@ -409,7 +409,7 @@ var app = new Vue({
             this.step = 4;
         },
         done: function() {
-            location.href = '/';
+            location.href = './';
         }
     },
     computed: {
