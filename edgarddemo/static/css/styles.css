@@ -229,7 +229,7 @@ header .cta-banner .close .btn-close {
 ***************************************/
 
 .jumbotron {
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 50.79%, rgba(0, 0, 0, 0.33) 100%), radial-gradient(452.00px at 50% 50%, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.06) 100%), url("/static/img/bg-home.png");
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 50.79%, rgba(0, 0, 0, 0.33) 100%), radial-gradient(452.00px at 50% 50%, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.06) 100%), url("./static/img/bg-home.png");
     width: 100%;
     height: 900px;
 }
@@ -415,7 +415,7 @@ header .cta-banner .close .btn-close {
 .initiate {
     width: 1440px;
     height: 344px;
-    background: url("/static/img/bg-edgard-gradient.png");
+    background: url("./static/img/bg-edgard-gradient.png");
 }
 
 .initiate a {
