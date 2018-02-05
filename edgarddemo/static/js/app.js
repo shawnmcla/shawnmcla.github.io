@@ -418,12 +418,12 @@ var app = new Vue({
             return this.airports[this.cityIndex].name;
         },
         dateString: function() {
-            return "le " + this.date.getUTCDate() + " " + this.getMonthName(this.date.getMonth());
+            return "le " + this.date.getUTCDate() + " " + this.getMonthName(this.date.getUTCMonth());
         },
         returnDateString: function() {
             let d = new Date(this.returnDate);
             console.log(JSON.stringify(d));
-            return d.getUTCDate() + " " + this.getMonthName(d.getMonth());
+            return d.getUTCDate() + " " + this.getMonthName(d.getUTCMonth());
         },
         totalCost: function() {
             if (!this.flight.totalCost) return "--.--$";
