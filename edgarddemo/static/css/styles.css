@@ -1,0 +1,1222 @@
+body {
+    font-family: 'Mukta', sans-serif;
+    color: #FFF;
+    background: #111;
+}
+
+b {
+    font-weight: bold;
+}
+
+.content {
+    position: relative;
+    width: 1440px;
+    height: 100%;
+    margin: 0 auto;
+}
+
+main {
+    background: #FFF;
+}
+
+input,
+select {
+    background: #F6F6F6;
+    box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    border: none;
+    padding-left: 5px;
+}
+
+.btn {
+    border-radius: 5px;
+    font-weight: 500;
+    line-height: 24px;
+    font-size: 12px;
+    color: #FFFFFF;
+    text-align: center;
+    cursor: pointer;
+}
+
+.btn:hover {
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.btn-success {
+    background: #48A102;
+}
+
+.btn-success:hover {
+    background: #348D0A;
+}
+
+.btn-warning {
+    background: #FFF;
+    border: 1px solid #CCCCCC;
+    color: #666666;
+}
+
+.btn-warning:hover {
+    background: #F2994A;
+    color: #FFF;
+    border: none;
+}
+
+.btn-default {
+    background: #3D3948;
+}
+
+.btn-default:hover {
+    background: #A19DAC;
+}
+
+
+/**************************************
+            HEADER CONTENT 
+***************************************/
+
+
+/* CTA Banner at the top announcing almost-full flights. Closeable */
+
+header a {
+    color: #FFF;
+    text-decoration: none;
+}
+
+header .cta-banner {
+    background: #3D3948;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+}
+
+header .cta-banner div {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+header .cta-banner .prompt {
+    font-size: 24px;
+    text-align: left;
+    margin-left: 20px;
+}
+
+header .cta-banner .info {
+    font-size: 18x;
+    text-align: center;
+    margin-left: 50px;
+}
+
+header .cta-banner .close {
+    position: absolute;
+    color: #A19DAC;
+    font-size: 14px;
+    right: 30px;
+    cursor: pointer;
+}
+
+header .cta-banner .close .btn-close {
+    margin-left: 10px;
+    font-size: 20px;
+}
+
+
+/* Main Navigation Area */
+
+.navigation {
+    position: relative;
+    background: #EE282F;
+    width: 100%;
+    height: 120px;
+}
+
+
+/* Logo */
+
+.navigation .logo {
+    background: #DBDBDB;
+    width: 280px;
+    height: 100%;
+}
+
+.navigation .logo img {
+    margin-left: 40px;
+    margin-top: 10px;
+}
+
+
+/* Nav Links */
+
+.navigation .navbar {
+    position: absolute;
+    left: 387px;
+    top: 73px;
+}
+
+.navigation .navbar li {
+    display: inline-block;
+    height: 47px;
+    font-size: 18px;
+    font-weight: bold;
+    margin-right: 60px;
+    cursor: pointer;
+}
+
+.navigation .navbar li.active,
+.navigation .navbar li:hover {
+    height: 41px;
+    border-bottom: 5px solid white;
+}
+
+
+/* Toolbar (Top Right Links) */
+
+.navigation .toolbar {
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+.navigation .toolbar .text {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 6px;
+    line-height: 23px;
+}
+
+.navigation .toolbar .phone {
+    position: absolute;
+    height: 35px;
+    right: 353px;
+    top: 0px;
+}
+
+.navigation .toolbar .account {
+    position: absolute;
+    background: #D81118;
+    width: 132px;
+    height: 35px;
+    right: 216px;
+    top: 0px;
+}
+
+.navigation .toolbar .flights {
+    position: absolute;
+    background: #B00000;
+    width: 140px;
+    height: 35px;
+    right: 83px;
+    top: 0px;
+}
+
+.navigation .toolbar .flights .flight-badge {
+    background: #48A102;
+    padding: 0px 8px;
+    border-radius: 100%;
+}
+
+.navigation .toolbar .language {
+    position: absolute;
+    background: #333333;
+    width: 83px;
+    height: 35px;
+    right: 0px;
+    top: 0px;
+}
+
+
+/**************************************
+            BODY CONTENT (HOMEPAGE)
+***************************************/
+
+.jumbotron {
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 50.79%, rgba(0, 0, 0, 0.33) 100%), radial-gradient(452.00px at 50% 50%, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.06) 100%), url("/static/img/bg-home.png");
+    width: 100%;
+    height: 900px;
+}
+
+.jumbotron h1 {
+    position: absolute;
+    top: 642px;
+    left: 395px;
+    font-size: 72px;
+    line-height: normal;
+    text-align: center;
+    font-weight: bold;
+}
+
+.jumbotron h3 {
+    position: absolute;
+    width: 374px;
+    height: 30px;
+    left: 534px;
+    top: 732px;
+    font-weight: 500;
+    line-height: normal;
+    font-size: 18px;
+    text-align: center;
+}
+
+.jumbotron .btn-initiate {
+    position: absolute;
+    left: 602px;
+    top: 777px;
+}
+
+.jumbotron .arrow {
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    left: 696px;
+    top: 996px;
+    color: #FFF;
+    font-size: 48px;
+    text-align: center;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.btn-initiate {
+    width: 238px;
+    height: 50px;
+    border: 3px solid #FFFFFF;
+    color: #FFF;
+    box-sizing: border-box;
+    border-radius: 50px;
+    font-size: 24px;
+    padding: 10px 36px;
+    cursor: pointer;
+}
+
+.instructions {
+    background: #EE2B31;
+    width: 100%;
+    height: 329px;
+}
+
+.breadcrumbs ul {
+    font-size: 12px;
+    position: relative;
+    left: 232px;
+    top: 19px;
+    color: #3D3948;
+}
+
+.breadcrumbs ul a {
+    text-decoration: none;
+    color: #EE282F;
+}
+
+.breadcrumbs li {
+    display: inline-block;
+}
+
+.breadcrumbs .arrow {
+    color: #D2D2D2;
+    margin: 0 10px;
+}
+
+.breadcrumbs li.home a {
+    color: #3D3948;
+}
+
+.instructions .content {
+    position: relative;
+}
+
+.instructions .numbers {
+    position: absolute;
+    top: 10px;
+    left: 378px;
+}
+
+.instructions .numbers div {
+    display: inline-block;
+    margin-right: 309px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+    font-size: 48px;
+    text-align: center;
+    margin-right: 309px;
+}
+
+.instructions .icons {
+    position: absolute;
+    top: 0px;
+}
+
+.instructions .icons div {
+    display: inline-block;
+}
+
+.instructions .icons .calendar {
+    position: absolute;
+    top: 100px;
+    left: 356px;
+}
+
+.instructions .icons .seat {
+    position: absolute;
+    left: 695px;
+    top: 96px;
+}
+
+.instructions .icons .takeoff {
+    position: absolute;
+    left: 1016px;
+    top: 102px;
+}
+
+.instructions .seperators {
+    position: absolute;
+    left: 534px;
+    top: 135px;
+    font-size: 30px;
+    color: #BD0107;
+}
+
+.instructions .seperators div {
+    display: inline-block;
+    margin-right: 316px;
+}
+
+.instructions .headers {
+    position: absolute;
+    top: 182px;
+    left: 252px;
+}
+
+.instructions .headers div {
+    display: inline-block;
+    width: 272px;
+    height: 60px;
+    margin-right: 60px;
+    font-weight: 800;
+    line-height: normal;
+    font-size: 36px;
+    text-align: center;
+}
+
+.instructions .descriptions {
+    position: absolute;
+    top: 232px;
+    left: 252px;
+}
+
+.instructions .descriptions div {
+    display: inline-block;
+    width: 272px;
+    margin-right: 60px;
+    font-weight: 500;
+    line-height: normal;
+    font-size: 14px;
+    text-align: center;
+}
+
+.initiate {
+    width: 1440px;
+    height: 344px;
+    background: url("/static/img/bg-edgard-gradient.png");
+}
+
+.initiate a {
+    position: relative;
+    top: 148px;
+    left: 562px;
+    text-decoration: none;
+}
+
+.initiate .btn-initiate {
+    background: #FFF;
+    font-size: 36px;
+    text-align: center;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    color: #3D3948;
+    width: 316px;
+    height: 60px;
+}
+
+footer {
+    position: relative;
+}
+
+footer .bottom {
+    height: 146px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 21px;
+    font-size: 12px;
+    color: #CCCCCC;
+    background: #262626;
+}
+
+footer .bottom .links {
+    position: relative;
+    left: 233px;
+    top: 20px;
+}
+
+footer .bottom a {
+    text-decoration: none;
+    color: #CCCCCC;
+}
+
+footer .bottom .logo {
+    position: absolute;
+    left: 1108px;
+    top: 52px;
+}
+
+
+/**************************************
+            BODY CONTENT (CALENDAR)
+***************************************/
+
+.booking-view {
+    color: #3D3948;
+    position: relative;
+    height: 1152px;
+    left: 233px;
+    top: 50px;
+}
+
+.booking-view .header h1 {
+    font-weight: 500;
+    line-height: normal;
+    font-size: 48px;
+}
+
+.booking-view .header h3 {
+    font-weight: 500;
+    line-height: normal;
+    font-size: 18px;
+    position: relative;
+    top: -20px;
+}
+
+.booking-view .progress {
+    position: relative;
+    left: 70px;
+}
+
+.booking-view .calendar-view {
+    position: relative;
+    top: 40px;
+}
+
+.calendar-view .calendar {
+    position: relative;
+    top: 20px;
+}
+
+.calendar-view .city-selector {
+    font-weight: bold;
+    line-height: normal;
+    font-size: 18px;
+}
+
+.calendar-view .city-selector select {
+    width: 230px;
+    height: 30px;
+    font-weight: normal;
+    line-height: normal;
+    font-size: 18px;
+}
+
+.calendar .header {
+    width: 973px;
+    height: 62px;
+    background: #3D3948;
+    color: #FFF;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.calendar .cal table {
+    max-width: 975px;
+    min-width: 975px;
+    border-left: 1px solid #EDF0F2;
+}
+
+.calendar .cal th {
+    background: #3D3948;
+    color: #FFF;
+    font-size: 12px;
+    text-align: center;
+    letter-spacing: -0.0166667em;
+    padding-bottom: 4px;
+}
+
+.calendar .cal td {
+    width: 139px;
+    height: 112px;
+    box-sizing: border-box;
+    position: relative;
+    cursor: pointer;
+    border-right: 1px solid #EDF0F2;
+    border-bottom: 1px solid #EDF0F2;
+}
+
+.calendar .cal .date {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+}
+
+.calendar .cal .date.current {
+    background: #EE282F;
+    color: #FFF;
+    border-radius: 100%;
+}
+
+
+/** Weekend Days **/
+
+.calendar .cal .col1,
+.calendar .cal .col7 {
+    background: #EBEBEB;
+    mix-blend-mode: normal;
+    opacity: 0.2;
+}
+
+.calendar .cal td:hover,
+.calendar .cal .focus {
+    background: #F1EDF5
+}
+
+.calendar .cal .dim {
+    color: #888A8C;
+    mix-blend-mode: normal;
+    opacity: 0.3;
+}
+
+.calendar .month-display {
+    font-weight: normal;
+    line-height: normal;
+    font-size: 24px;
+    text-align: center;
+    position: absolute;
+    left: 409px;
+    top: 10px;
+}
+
+.calendar .arrow {
+    font-size: 18px;
+    text-align: center;
+    color: #FFF;
+}
+
+.calendar .arrow.disabled {
+    color: #A19DAC;
+}
+
+.calendar .arrow-prev {
+    position: absolute;
+    top: 21px;
+    left: 20px;
+}
+
+.calendar .arrow-next {
+    position: absolute;
+    top: 21px;
+    left: 943px;
+}
+
+.legend {
+    position: relative;
+    top: 40px;
+}
+
+.legend .item {
+    display: inline-block;
+    margin-right: 30px;
+    font-size: 14px;
+    line-height: 18px;
+    vertical-align: middle;
+}
+
+.legend .circle {
+    display: inline-block;
+    border-radius: 100%;
+    width: 18px;
+    height: 18px;
+    transform: translateY(3px);
+}
+
+.cal-blue {
+    background: #2F80ED;
+}
+
+.cal-yellow {
+    background: #F2C94C;
+}
+
+.cal-green {
+    background: #68B928;
+}
+
+.table-wrapper {
+    width: 973px;
+    box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+}
+
+
+/** Calendar Popups **/
+
+.popup {
+    position: absolute;
+    top: 500px;
+    left: 600px;
+    width: 260px;
+    height: 430px;
+    background: #FFFFFF;
+    border-radius: 5px;
+    box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.25);
+    color: #3D3948;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.popup.popup-initiate {
+    left: 400px;
+    height: 450px;
+}
+
+.popup a {
+    text-decoration: none;
+    font-weight: normal;
+    line-height: normal;
+    font-size: 10px;
+    color: #666666;
+}
+
+.popup .arrow {
+    position: absolute;
+    left: 120px;
+    top: 447px;
+}
+
+.popup .prompt {
+    position: absolute;
+    top: 5px;
+    left: 10px;
+}
+
+.popup .btn-close {
+    position: absolute;
+    top: 3px;
+    right: 9px;
+    cursor: pointer;
+}
+
+.popup .departure {
+    position: absolute;
+    left: 11px;
+    top: 39px;
+}
+
+.popup .departure .date {
+    color: #2F80ED;
+}
+
+.popup .departure-time {
+    position: absolute;
+    top: 37px;
+    right: 10px;
+}
+
+.popup .departure-time input,
+.popup .returnTime {
+    width: 60px;
+    height: 24px;
+    font-size: 12px;
+    color: #2F80ED;
+    font-family: 'Mukta', sans-serif !important;
+}
+
+.popup input[type="time"]:-moz-read-only {
+    color: #2F80ED;
+}
+
+.popup .departure-location {
+    position: absolute;
+    top: 66px;
+    left: 10px;
+}
+
+.popup .departure-location input {
+    width: 240px;
+    height: 24px;
+    font-size: 12px;
+}
+
+.popup .destination-location {
+    position: absolute;
+    top: 112px;
+    left: 10px;
+}
+
+.popup .destination-dropdown {
+    width: 240px;
+}
+
+.popup .destination-location input {
+    width: 240px;
+    height: 24px;
+    font-size: 12px;
+}
+
+.popup .locate-link-from {
+    position: absolute;
+    top: 90px;
+    left: 10px;
+}
+
+.popup .locate-link-to {
+    position: absolute;
+    top: 137px;
+    left: 10px;
+}
+
+.popup .divider {
+    width: 240px;
+    margin: 0 auto;
+    position: absolute;
+    top: 164px;
+    left: 10px;
+    border: 1px solid #3D3948;
+}
+
+.popup .divider-arrow {
+    position: absolute;
+    top: 161px;
+    left: 124px;
+    font-size: 12px;
+}
+
+.popup .return {
+    position: absolute;
+    top: 174px;
+    left: 10px;
+}
+
+.popup .returnDate {
+    font-family: Mukta;
+    position: absolute;
+    width: 130px;
+    height: 24px;
+    top: 198px;
+    left: 10px;
+    font-size: 12px;
+    color: #2F80ED;
+}
+
+.popup .returnTime {
+    position: absolute;
+    width: 60px;
+    height: 24px;
+    top: 198px;
+    left: 190px;
+    font-size: 12px;
+    color: #2F80ED;
+}
+
+.popup table {
+    position: absolute;
+    width: 240px;
+    top: 242px;
+    left: 10px;
+    font-size: 12px;
+}
+
+.popup table .right-col {
+    text-align: right;
+    color: #2F80ED;
+}
+
+.popup table tr {
+    border-bottom: 1px dotted #E0E0E0;
+}
+
+.popup table td {
+    padding: 5px 0px;
+}
+
+.popup .bottom {
+    position: absolute;
+    height: 68px;
+    bottom: 10px;
+    width: 260px;
+}
+
+.popup .share {
+    position: absolute;
+    bottom: 44px;
+    left: 10px;
+    line-height: 24px;
+}
+
+.popup .share .share-icon {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.popup .passengerCount {
+    position: absolute;
+    left: 146px;
+}
+
+.popup .passengerCount .btn {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    background: rgb(99, 89, 126);
+    border-radius: 3px;
+    font-size: 12px;
+    color: #FFF;
+    text-align: center;
+    line-height: 24px;
+    cursor: pointer;
+}
+
+.popup .passengerCount .btn.disabled {
+    background: #A19DAC;
+    cursor: not-allowed;
+}
+
+.popup .passengerCount .btn-minus {
+    top: 0px;
+    left: 0px;
+}
+
+.popup .passengerCount .btn-plus {
+    top: 0px;
+    left: 80px;
+}
+
+.popup .passengerCount .count {
+    position: absolute;
+    width: 46px;
+    height: 24px;
+    left: 29px;
+    background: #F6F6F6;
+    box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 24px;
+}
+
+.popup .btn-cancel {
+    position: absolute;
+    width: 61px;
+    height: 24px;
+    bottom: 0px;
+    left: 91px;
+}
+
+.popup .btn-join-flight {
+    position: absolute;
+    width: 88px;
+    height: 24px;
+    left: 162px;
+}
+
+.popup.popup-initiate .btn-cancel {
+    left: 80px;
+    bottom: 0px;
+}
+
+.popup .btn-initiate-flight {
+    position: absolute;
+    width: 99px;
+    height: 24px;
+    bottom: 0px;
+    left: 151px;
+}
+
+
+/**************************************
+            BODY CONTENT (RESERVE)
+***************************************/
+
+.booking-view .reserve {
+    position: absolute;
+    left: 233px;
+    width: 525px;
+    height: 600px;
+    background: #FFFFFF;
+    border: 1px solid #DBDBDB;
+    box-sizing: border-box;
+    border-radius: 5px;
+    font-weight: bold;
+    line-height: normal;
+    font-size: 18px;
+    color: #333333;
+}
+
+.booking-view h1.prompt {
+    font-weight: 500;
+    line-height: normal;
+    font-size: 24px;
+    color: #3D3948;
+    margin-top: 40px;
+    margin-bottom: 10px;
+    padding-left: 233px;
+}
+
+.reserve a {
+    text-decoration: none;
+}
+
+.reserve .blue {
+    color: #2F80ED;
+}
+
+.reserve .departure {
+    position: absolute;
+    left: 21px;
+    top: 16px;
+}
+
+.reserve .passengerCount {
+    position: absolute;
+    top: 335px;
+    right: 20px;
+    width: 75px;
+    height: 40px;
+    background: #F6F6F6;
+    box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    line-height: normal;
+    font-size: 14px;
+    line-height: 40px;
+    text-align: center;
+}
+
+.reserve .departure-time,
+.reserve .return-time {
+    position: absolute;
+    width: 80px;
+    height: 40px;
+    background: #F6F6F6;
+    box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    text-align: center;
+    line-height: 40px;
+    font-weight: normal;
+    font-size: 14px;
+}
+
+.reserve .departure-time {
+    top: 11px;
+    right: 20px;
+}
+
+.reserve .return-time {
+    top: 274px;
+    right: 20px;
+}
+
+.reserve .departure-location,
+.reserve .destination-location {
+    position: absolute;
+    width: 485px;
+    height: 40px;
+    background: #F6F6F6;
+    box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    padding-left: 12px;
+    font-size: 14px;
+    line-height: 40px;
+    font-weight: normal;
+}
+
+.reserve .departure-location {
+    left: 20px;
+    top: 71px;
+}
+
+.reserve .destination-location {
+    left: 20px;
+    top: 148px;
+}
+
+.reserve .locate-link {
+    position: absolute;
+    font-weight: normal;
+    line-height: normal;
+    font-size: 10px;
+}
+
+.reserve .locate-link a {
+    color: #666666;
+}
+
+.reserve .locate-link-from {
+    left: 21px;
+    top: 111px;
+}
+
+.reserve .locate-link-to {
+    left: 21px;
+    top: 188px;
+}
+
+.reserve .return {
+    position: absolute;
+    left: 20px;
+    top: 249px;
+}
+
+.reserve .return-date {
+    position: absolute;
+    width: 384px;
+    height: 40px;
+    background: #F6F6F6;
+    box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    line-height: 40px;
+    padding-left: 12px;
+    left: 21px;
+    top: 274px;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.reserve .calendar-icon {
+    float: right;
+    position: relative;
+    left: -11px;
+}
+
+.reserve table {
+    position: absolute;
+    bottom: 80px;
+    left: 21px;
+    width: 485px;
+}
+
+.reserve table .right-col {
+    text-align: right;
+    color: #2F80ED;
+}
+
+.reserve table tr {
+    border-bottom: 1px dotted #E0E0E0;
+}
+
+.reserve .btn {
+    font-size: 18px;
+    line-height: 40px;
+    text-align: center;
+}
+
+.reserve .btn-cancel {
+    position: absolute;
+    left: 61px;
+    bottom: 20px;
+    width: 100px;
+    height: 40px;
+}
+
+.reserve .btn-back {
+    position: absolute;
+    left: 171px;
+    bottom: 20px;
+    width: 173px;
+    height: 40px;
+}
+
+.reserve .btn-next-step {
+    position: absolute;
+    left: 354px;
+    bottom: 20px;
+    width: 151px;
+    height: 40px;
+}
+
+.reserve table .divider {
+    width: 100%;
+    border: 1px solid #3D3948;
+}
+
+
+/**************************************
+            BODY CONTENT (CONFIRM)
+***************************************/
+
+.reserve .confirm-table {
+    bottom: 125px;
+}
+
+.reserve .departure-confirm,
+.reserve .destination-confirm {
+    border-bottom: 1px dotted #E0E0E0;
+    margin-bottom: 10px;
+    position: absolute;
+    width: 485px;
+}
+
+.reserve .departure-confirm {
+    left: 20px;
+    top: 56px;
+}
+
+.reserve .destination-confirm {
+    left: 20px;
+    top: 108px;
+}
+
+.reserve .return-confirm {
+    position: absolute;
+    top: 154px;
+    left: 20px;
+}
+
+.reserve .share {
+    position: absolute;
+    right: 20px;
+    bottom: 85px;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.reserve .share .share-icon {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.booking-view h3.email-prompt {
+    font-weight: normal;
+    line-height: normal;
+    font-size: 14px;
+    color: #333333;
+    position: relative;
+    left: 233px;
+    top: -20px;
+}
+
+.booking-view .email-address {
+    color: #A19DAC;
+    text-decoration: underline;
+}
+
+.booking-view .btn-flights {
+    position: absolute;
+    width: 217px;
+    height: 40px;
+    left: 124px;
+    bottom: 20px;
+}
+
+.booking-view .btn-bundles {
+    position: absolute;
+    width: 154px;
+    height: 40px;
+    left: 351px;
+    bottom: 20px;
+}
