@@ -351,7 +351,7 @@ var app = new Vue({
             return this.airports[this.destinationIndex];
         },
         getMonthName: function(index) {
-            return ["janvier", "février", "mars", "avril", "may", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"][index];
+            return ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"][index];
         },
         closePopup: function(which) {
             if (which === "initiate") this.popupInitiate = false;

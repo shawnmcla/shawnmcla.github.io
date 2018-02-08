@@ -41,34 +41,34 @@
                 <nav>
                     <div class="navbar">
                         <ul>
-                            <li class="active"><a href="#">Initiez un vol</a></li>
-                            <li><a href="#">Forfaits</a></li>
-                            <li><a href="#">Avions</a></li>
-                            <li><a href="#">Edgard</a></li>
-                            <li><a href="#">Nous contacter</a></li>
+                            <li class="active"><a href="#">Initiez ou joindre un vol</a></li>
+                            <li><a href="./forfaits.html">Forfaits</a></li>
+                            <li><a href="./avions.html">Avions</a></li>
+                            <li><a href="./edgard.html">Edgard</a></li>
+                            <li><a href="./contact.html">Nous contacter</a></li>
                         </ul>
                     </div>
                 </nav>
 
                 <!-- Top Right Links -->
                 <div class="toolbar">
-                    <div class="phone">
+                    <div class="tab phone">
                         <div class="text">
                             <a href="tel:1-888-888-8888"><i class="fas fa-phone fa-flip-horizontal"></i> &nbsp;888 888-8888</a>
                         </div>
                     </div>
-                    <div class="account">
+                    <div class="tab account">
                         <div class="text">
                             <a href="#"><i class="fas fa-user"></i> Mon compte</a>
                         </div>
                     </div>
-                    <div class="flights">
+                    <div class="tab flights">
                         <div class="text">
                             <a href="#">
                                 <i class="fas fa-plane" data-fa-transform="rotate-315"></i> Mes vols <span class="flight-badge">2</span></a>
                         </div>
                     </div>
-                    <div class="language">
+                    <div class="tab language">
                         <div class="text">
                             <a href="#">English</a>
                         </div>
@@ -297,7 +297,7 @@
                             <table class="confirm-table">
                                 <tr>
                                     <td>Prix total de l'avion</td>
-                                    <td class="right-col blue">6656.79$</td>
+                                    <td class="right-col blue">{{ totalCost }}</td>
                                 </tr>
                                 <tr>
                                     <td>Prix total si le vol est complet</td>
@@ -449,6 +449,9 @@
         -->
                 </div>
             </div>
+            <div class="featured-bundles">
+                <img src="./static/img/forfaits.png" />
+            </div>
         </main>
 
 
@@ -457,26 +460,58 @@
     -->
 
         <footer>
-            <div>
-                <!--
             <div class="main">
-                <div class="social"></div>
-                <div class="links"></div>
-                <div class="newsletter"></div>
-            </div>
-        -->
-                <div class="bottom">
-                    <div class="links">
-                        <ul>
-                            <li>&copy; 2018 Edgard</li>
-                            <li><a href="#">Conditions générales de transport et tarifs</a></li>
-                            <li><a href="#">Plan de service clientèle</a></li>
-                            <li><a href="#">Confidentialité</a></li>
-                            <li><a href="#">Conditions d'utilisation</a></li>
-                        </ul>
+
+                <div class="left">
+                    <h1>Edgard</h1>
+                    <div class="footer-about">
+                        <a href="./apropos.html">À propos d'Egard</a>
+                    </div>
+                    <div class="social">
+                        <div class="social-icon">
+                            <a href="#"><img src="./static/img/youtube.svg" alt="YouTube" /></a>
+                        </div>
+                        <div class="social-icon">
+                            <a href="#"><img src="./static/img/twitter.svg" alt="Twitter" /></a>
+                        </div>
+                        <div class="social-icon">
+                            <a href="#"><img src="./static/img/facebook.svg" alt="Facebook" /></a>
+                        </div>
                     </div>
                 </div>
+
+                <div class="center">
+                    <h1>Pour nous joindre</h1>
+                    <ul>
+                        <li><a href="contact.html">Coordonées</a></li>
+                        <li><a href="edgard.html">Pourquoi réserver avec Edgard</a></li>
+                        <li><a href="#">Nos destinations</a></li>
+                        <li><a href="#">Vols vers le Canada</a></li>
+                    </ul>
+                </div>
+
+                <div class="right">
+                    <h1>Offres électroniques</h1>
+                    <input type="email" placeholder="Votre courriel" />
+                    <div class="email-icon"><i class="fas fa-envelope"></i></div>
+                    <div class="btn btn-red btn-signup">S'abonner</div>
+                    <div class="modify"><a href="#">Modifier les préférences</a></div>
+                </div>
+
             </div>
+            <div class="bottom">
+                <div class="links">
+                    <ul>
+                        <li>&copy; 2018 Edgard</li>
+                        <li><a href="#">Conditions générales de transport et tarifs</a></li>
+                        <li><a href="#">Plan de service clientèle</a></li>
+                        <li><a href="#">Confidentialité</a></li>
+                        <li><a href="#">Conditions d'utilisation</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
         </footer>
     </div>
 
