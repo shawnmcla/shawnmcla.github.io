@@ -86,6 +86,7 @@
 
         <main>
             <div id="app-root">
+                <div class="dark-overlay" v-if="popupAddPassenger && step === 2"></div>
                 <!-- Section: Breadcrumbs -->
                 <div class="breadcrumbs">
                     <ul>
@@ -109,7 +110,7 @@
                     <!--*********************************
                                      STEP 1
                     *********************************-->
-                    <div v-if="step === 1" class="calendar-view">
+                    <div v-if="step === 1" class="calendar-view" key="b">
                         <div class="city-selector">
                             Votre ville:
                             <select @change="cityChanged" name="city">
@@ -211,7 +212,7 @@
                     <!--*********************************
                                      STEP 2
                     *********************************-->
-                    <div v-else-if="step === 2">
+                    <div v-else-if="step === 2" key="a">
                         <h1 class="prompt"> {{firstName + " " + lastName}}, Joindre un vol</h1>
                         <div class="reserve">
                             <div class="departure"><i class="fas fa-arrow-right"></i> Départ <span class="date blue">{{ dateString }}</span></div>
@@ -226,19 +227,10 @@
                             <div class="return-date"><span class="blue">{{ returnDateString }}</span> <span class="calendar-icon"><i class="far fa-calendar-alt"></i></span></div>
                             <div class="return-time"><span class="blue">{{ returnTime }}</span>&nbsp;&nbsp;&nbsp;<i class="far fa-clock"></i></div>
 
-                            <!--
-                        <div class="passengers">
-                            <div class="passenger passenger-self"><i class="fas fa-user"></i> Yannick Richard (vous)</div>
-                            <div class="passenger"><i class="fas fa-user"></i> Miles Davis
-                                <div class="remove-passenger"><i class="fas fa-times"></i></div>
+                            <div class="passengers">
+                                <div v-for="(passenger, index) in flight.passengersToAdd" class="passenger" :class="{'passenger-self': index === 0}"><i class="fas fa-user"></i> &nbsp;{{passenger.first + " " + passenger.last }} <span v-if="index===0" class="blue">(vous)</span> <span v-if="index !== 0" @click="removePassenger(index)" class="remove-passenger" data-passengerIndex="index"><i class="fas fa-times" title="Enlever"></i></span></div>
                             </div>
-                            <div class="passenger"><i class="fas fa-user"></i> Barry White
-                                <div class="remove-passenger"><i class="fas fa-times"></i></div>
-                            </div>
-                            <div class="passenger-count">1 <i class="fas fa-user"></i></div>
-                            <div class="add-passenger"><i class="fas fa-plus"></i></div>
-                        </div>
-                    -->
+
                             <table>
                                 <tr>
                                     <td>Prix total de l'avion</td>
@@ -260,9 +252,9 @@
 
 
                             <div class="passengerCount">
-                                <!--<div class="btn btn-minus"><i class="fas fa-minus"></i></div>-->
+                                <!--<div @click="removePassenger" :class="{disabled: passengersToAdd.length<2}" class="btn btn-minus"><i class="fas fa-minus"></i></div>-->
                                 <div class="count">{{ passengersToAddCount }}&nbsp;&nbsp;&nbsp;<i class="fas fa-user"></i></div>
-                                <!--<div class="btn btn-plus"><i class="fas fa-plus"></i></div>-->
+                                <div @click="addPassenger" :class="{disabled: flight.passengersToAdd.length>=flight.maxPassengers}" class="btn btn-plus"><i class="fas fa-plus"></i></div>
                             </div>
 
                             <div @click="cancel" class="btn btn-warning btn-cancel">Annuler</div>
@@ -273,7 +265,7 @@
                     <!--*********************************
                                      STEP 3
                     *********************************-->
-                    <div v-else-if="step === 3">
+                    <div v-else-if="step === 3" key="c">
                         <h1 class="prompt"> {{ firstName + " " + lastName}}, votre confirmation</h1>
                         <div class="reserve">
                             <div class="departure"><i class="fas fa-arrow-right"></i> Départ <span class="date blue">{{ dateString }} {{ departureTime }}</span></div>
@@ -281,6 +273,9 @@
                             <div class="destination-confirm"><b>À :</b> {{flight.airportTo.name}}</div>
                             <div class="return-confirm"><i class="fas fa-arrow-left"></i> Retour <span class="blue">le {{ returnDateString }} {{ returnTime }}</span></div>
 
+                            <div class="passengers passengers-confirm">
+                                <div v-for="(passenger, index) in flight.passengersToAdd" class="passenger" :class="{'passenger-self': index === 0}"><i class="fas fa-user"></i> &nbsp;{{passenger.first + " " + passenger.last }} <span v-if="index===0" class="blue">(vous)</span></div>
+                            </div>
                             <!--
                                 <div class="passengers">
                                     <div class="passenger passenger-self"><i class="fas fa-user"></i> Yannick Richard (vous)</div>
@@ -333,7 +328,7 @@
                     <!--- *********************
                                 STEP 4
                     ************************** -->
-                    <div v-else-if="step === 4">
+                    <div v-else-if="step === 4" key="d">
                         <h1 class="prompt"> Félicitation Yannick, vous avez joint ce vol</h1>
                         <h3 class="email-prompt">Un courriel de confirmation sera envoyé à <span class="email-address">utilisateur@email.com</span></h3>
                         <div class="reserve">
@@ -341,7 +336,9 @@
                             <div class="departure-confirm"><b>De :</b> {{airportName}}</div>
                             <div class="destination-confirm"><b>À :</b> {{flight.airportTo.name}}</div>
                             <div class="return-confirm"><i class="fas fa-arrow-left"></i> Retour <span class="blue">le {{ returnDateString }} {{ returnTime }}</span></div>
-
+                            <div class="passengers passengers-confirm">
+                                <div v-for="(passenger, index) in flight.passengersToAdd" class="passenger" :class="{'passenger-self': index === 0}"><i class="fas fa-user"></i> &nbsp;{{passenger.first + " " + passenger.last }} <span v-if="index===0" class="blue">(vous)</span></div>
+                            </div>
                             <!--
                                 <div class="passengers">
                                     <div class="passenger passenger-self"><i class="fas fa-user"></i> Yannick Richard (vous)</div>
@@ -374,7 +371,9 @@
                                 </tr>
                             </table>
                             <div @click="done" class="btn btn-default btn-flights">Initiez ou joindre un vol</div>
-                            <div class="btn btn-default btn-bundles">Voir les forfaits</div>
+                            <a href="./forfaits.html">
+                                <div class="btn btn-default btn-bundles">Voir les forfaits</div>
+                            </a>
                         </div>
                     </div>
                     <div v-else>Invalid State</div>
@@ -416,23 +415,68 @@
                             </tr>
                         </table>
                         <div class="bottom">
+                            <!--
                             <div class="passengerCount">
                                 <div @click="removePassenger" :class="{disabled: passengersToAdd.length<2}" class="btn btn-minus"><i class="fas fa-minus"></i></div>
                                 <div class="count">{{ passengersToAddCount }}&nbsp;&nbsp;&nbsp;<i class="fas fa-user"></i></div>
                                 <div @click="addPassenger" :class="{disabled: passengersToAdd.length>=flight.maxPassengers}" class="btn btn-plus"><i class="fas fa-plus"></i></div>
                             </div>
+                        -->
                             <div @click="closePopup('initiate')" class="btn btn-warning btn-cancel">Annuler</div>
                             <div @click="initiateFlight" class="btn btn-success btn-initiate-flight">Initiez votre vol</div>
                         </div>
                         <svg class="arrow" width="21" height="18" viewBox="0 0 21 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Canvas" transform="translate(-21040 -6472)"><g id="Polygon"><use xlink:href="#path0_fill" transform="matrix(-1 -1.22465e-16 1.22465e-16 -1 21060.8 6490)" fill="#FFFFFF"/></g></g><defs><path id="path0_fill" d="M 10.3923 0L 20.7846 18L -5.18951e-08 18L 10.3923 0Z"/></defs></svg>
                     </div>
+
+                    <div class="popup-add-passenger" v-if="popupAddPassenger && step === 2">
+                        <div class="btn-close"><i class="fas fa-times" title="Fermer"></i></div>
+                        <h1>Ajouter un passager</h1>
+                        <div class="form">
+
+                            <div class="group">
+                                <div class="label">Prénom du passager</div>
+                                <input type="text" id="passenger-first-name" v-model="passengerFirstName">
+                            </div>
+
+                            <div class="group">
+                                <div class="label">Nom du passager</div>
+                                <input type="text" id="passenger-last-name" v-model="passengerLastName">
+                            </div>
+
+                            <div class="group">
+                                <div class="label">Courriel du passager</div>
+                                <input type="email" id="passenger-email" v-model="passengerEmail">
+                            </div>
+
+                            <div class="group">
+                                <div class="checkbox-wrapper">
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" class="checkbox-edgard" value="None" id="accept-conditions" name="check" />
+                                        <label for="accept-conditions" class="checkbox-edgard-2"></label>
+                                    </div>
+                                </div>
+                                <div class="label label-conditions">J'accepte les <a href="#">conditions d'utilisation</a> et la <a href="#">politique de confidentialité + courriel</a></div>
+                            </div>
+
+                            <div class="group">
+                                <div class="checkbox-wrapper">
+                                    <input type="checkbox" class="checkbox-edgard" value="None" id="accept-mailing-list" name="check" />
+                                    <label for="accept-mailing-list" class="checkbox-edgard-2"></label>
+                                </div>
+                                <div class="label label-email">J'aimerais m'abonner aux offres électroniques d’Edgard</div>
+                            </div>
+
+                        </div>
+                        <div @click="closeAddPassenger" class="btn btn-warning btn-cancel">Annuler</div>
+                        <div @click="confirmPassenger" class="btn btn-success btn-confirm">Confirmer l'ajout de ce passager</div>
+                    </div>
                     <!-- Section: Featured Bundle Slideshow -->
                     <!--
-            <div class="featured-bundles-slideshow">
-                <div class="prev"><i class="fas fa-angle-left"></i></div>
+            <div class="featured-bundles-slideshow ">
+                <div class="prev "><i class="fas fa-angle-left "></i></div>
 
-                <div class="btn-category">
-                    <a href="#">Forfaits sportif</a>
+                <div class="btn-category ">
+                    <a href="# ">Forfaits sportif</a>
                 </div>
 
                 <h1>Rouyn Noranda à New York</h1>
@@ -441,15 +485,15 @@
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cupiditate quasi aliquam quidem dicta molestiae praesentium, illo tempore blanditiis ut facilis.
                 </p>
 
-                <div class="btn-book-bundle">Réservez d'ici le 25 novembre <i class="fas fa-angle-right"></i></div>
+                <div class="btn-book-bundle ">Réservez d'ici le 25 novembre <i class="fas fa-angle-right "></i></div>
 
-                <div class="next"><i class="fas fa-angle-right"></i></div>
+                <div class="next "><i class="fas fa-angle-right "></i></div>
             </div>
         -->
                 </div>
             </div>
-            <div class="featured-bundles">
-                <img src="./static/img/forfaits.png" />
+            <div class="featured-bundles ">
+                <img src="./static/img/forfaits.png " />
             </div>
         </main>
 
@@ -459,53 +503,53 @@
     -->
 
         <footer>
-            <div class="main">
+            <div class="main ">
 
-                <div class="left">
+                <div class="left ">
                     <h1>Edgard</h1>
-                    <div class="footer-about">
-                        <a href="./apropos.html">À propos d'Egard</a>
+                    <div class="footer-about ">
+                        <a href="./apropos.html ">À propos d'Egard</a>
                     </div>
-                    <div class="social">
-                        <div class="social-icon">
-                            <a href="#"><img src="./static/img/youtube.svg" alt="YouTube" /></a>
+                    <div class="social ">
+                        <div class="social-icon ">
+                            <a href="# "><img src="./static/img/youtube.svg " alt="YouTube " /></a>
                         </div>
-                        <div class="social-icon">
-                            <a href="#"><img src="./static/img/twitter.svg" alt="Twitter" /></a>
+                        <div class="social-icon ">
+                            <a href="# "><img src="./static/img/twitter.svg " alt="Twitter " /></a>
                         </div>
-                        <div class="social-icon">
-                            <a href="#"><img src="./static/img/facebook.svg" alt="Facebook" /></a>
+                        <div class="social-icon ">
+                            <a href="# "><img src="./static/img/facebook.svg " alt="Facebook " /></a>
                         </div>
                     </div>
                 </div>
 
-                <div class="center">
+                <div class="center ">
                     <h1>Pour nous joindre</h1>
                     <ul>
-                        <li><a href="contact.html">Coordonées</a></li>
-                        <li><a href="edgard.html">Pourquoi réserver avec Edgard</a></li>
-                        <li><a href="#">Nos destinations</a></li>
-                        <li><a href="#">Vols vers le Canada</a></li>
+                        <li><a href="contact.html ">Coordonées</a></li>
+                        <li><a href="edgard.html ">Pourquoi réserver avec Edgard</a></li>
+                        <li><a href="# ">Nos destinations</a></li>
+                        <li><a href="# ">Vols vers le Canada</a></li>
                     </ul>
                 </div>
 
-                <div class="right">
+                <div class="right ">
                     <h1>Offres électroniques</h1>
-                    <input type="email" placeholder="Votre courriel" />
-                    <div class="email-icon"><i class="fas fa-envelope"></i></div>
-                    <div class="btn btn-red btn-signup">S'abonner</div>
-                    <div class="modify"><a href="#">Modifier les préférences</a></div>
+                    <input type="email " placeholder="Votre courriel " />
+                    <div class="email-icon "><i class="fas fa-envelope "></i></div>
+                    <div class="btn btn-red btn-signup ">S'abonner</div>
+                    <div class="modify "><a href="# ">Modifier les préférences</a></div>
                 </div>
 
             </div>
-            <div class="bottom">
-                <div class="links">
+            <div class="bottom ">
+                <div class="links ">
                     <ul>
                         <li>&copy; 2018 Edgard</li>
-                        <li><a href="#">Conditions générales de transport et tarifs</a></li>
-                        <li><a href="#">Plan de service clientèle</a></li>
-                        <li><a href="#">Confidentialité</a></li>
-                        <li><a href="#">Conditions d'utilisation</a></li>
+                        <li><a href="# ">Conditions générales de transport et tarifs</a></li>
+                        <li><a href="# ">Plan de service clientèle</a></li>
+                        <li><a href="# ">Confidentialité</a></li>
+                        <li><a href="# ">Conditions d'utilisation</a></li>
                     </ul>
                 </div>
 
@@ -516,12 +560,12 @@
 
     <!-- Libraries -->
     <!--
-    <script src="/static/js/jquery.min.js"></script>
-    <script src="/static/js/popper.min.js"></script>
-    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/jquery.min.js "></script>
+    <script src="/static/js/popper.min.js "></script>
+    <script src="/static/js/bootstrap.min.js "></script>
     -->
-    <script src="./static/js/vue.js"></script>
-    <script src="./static/js/fontawesome-all.min.js"></script>
+    <script src="./static/js/vue.js "></script>
+    <script src="./static/js/fontawesome-all.min.js "></script>
     <script src="./static/js/app.js "></script>
 </body>
 

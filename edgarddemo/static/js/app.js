@@ -130,7 +130,7 @@ Flight.prototype.currentPricePer = function() {
     return (this.totalCost / Math.max(this.passengers.length, 1)).toFixed(2);
 };
 Flight.prototype.priceAddedPassengers = function(amt) {
-    return (this.totalCost / (Math.max(this.passengers.length, 1) + amt)).toFixed(2);
+    return (this.totalCost / Math.max((Math.max(this.passengers.length, 1) + amt), 1)).toFixed(2);
 };
 Flight.prototype.priceIfFull = function() {
     return (this.totalCost / this.maxPassengers).toFixed(2);
@@ -303,6 +303,7 @@ var state = {
     cities: services.airport.getCityList(),
     popupJoin: false,
     popupInitiate: false,
+    popupAddPassenger: false,
     date: {},
     cityIndex: 0,
     destinationIndex: 0,
@@ -314,8 +315,10 @@ var state = {
     returnTime: "19:00",
     firstName: "Yannick",
     lastName: "Richard",
-    initialPrice: 0,
-    passengersToAdd: [{}],
+    passengerFirstName: "",
+    passengerLastName: "",
+    passengerEmail: "",
+    initialPrice: 0
 };
 var app = new Vue({
     el: "#app-root",
@@ -365,7 +368,7 @@ var app = new Vue({
             if (timeRegex.test(this.departureTime) && timeRegex.test(this.returnTime)) {
                 console.log("Valid times");
                 this.flight = new Flight(this.getOrigin(), this.getDestination(), new Date(this.date), this.departureTime, this.returnDate, this.returnTime);
-                this.flight.passengersToAdd.push(...this.passengersToAdd);
+                this.flight.passengersToAdd.push(new Passenger("Yannick", "Richard", "yrich@gmail.com"));
                 console.log("Initiated flight:" + JSON.stringify(this.flight));
                 this.step = 2;
             } else {
@@ -374,12 +377,24 @@ var app = new Vue({
         },
         addPassenger: function() {
             console.log("adding passenger");
-            if (this.passengersToAdd.length < this.flight.maxPassengers)
-                this.passengersToAdd.push({});
+            if (this.flight.passengersToAdd.length < this.flight.maxPassengers) {
+                this.popupAddPassenger = true;
+            }
         },
-        removePassenger: function() {
-            console.log("removing passenger");
-            if (this.passengersToAdd.length > 1) this.passengersToAdd.pop();
+        closeAddPassenger: function() {
+            console.log("Cancelling passenger..");
+            this.popupAddPassenger = false;
+            this.passengerLastName = "";
+            this.passengerFirstName = "";
+            this.passengerEmail = "";
+        },
+        confirmPassenger: function() {
+            this.flight.passengersToAdd.push(new Passenger(this.passengerFirstName, this.passengerLastName, this.passengerEmail));
+            this.closeAddPassenger();
+        },
+        removePassenger: function(index) {
+            console.log("removing passenger", index);
+            if (index !== 0) this.flight.passengersToAdd.splice(index, 1);
         },
         pricePerPerson: function() {
             if (!this.flight.currentPricePer) return "--.--$";
@@ -434,7 +449,7 @@ var app = new Vue({
             else return this.flight.passengers.length;
         },
         passengersToAddCount: function() {
-            return this.passengersToAdd.length;
+            return this.flight.passengersToAdd.length;
         },
         departureLocationLink: function() {
             return this.getOrigin() ? `https://www.google.com/maps?ll=${this.getOrigin().lat},${this.getOrigin().lon}&z=13` : "#";

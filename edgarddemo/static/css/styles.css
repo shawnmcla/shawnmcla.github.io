@@ -600,7 +600,7 @@ footer .bottom .logo {
 .booking-view {
     color: #3D3948;
     position: relative;
-    height: 1152px;
+    height: 1200px;
     left: 233px;
     top: 50px;
 }
@@ -989,52 +989,6 @@ footer .bottom .logo {
     margin-right: 5px;
 }
 
-.popup .passengerCount {
-    position: absolute;
-    left: 146px;
-}
-
-.popup .passengerCount .btn {
-    position: absolute;
-    width: 24px;
-    height: 24px;
-    background: rgb(99, 89, 126);
-    border-radius: 3px;
-    font-size: 12px;
-    color: #FFF;
-    text-align: center;
-    line-height: 24px;
-    cursor: pointer;
-}
-
-.popup .passengerCount .btn.disabled {
-    background: #A19DAC;
-    cursor: not-allowed;
-}
-
-.popup .passengerCount .btn-minus {
-    top: 0px;
-    left: 0px;
-}
-
-.popup .passengerCount .btn-plus {
-    top: 0px;
-    left: 80px;
-}
-
-.popup .passengerCount .count {
-    position: absolute;
-    width: 46px;
-    height: 24px;
-    left: 29px;
-    background: #F6F6F6;
-    box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.25);
-    border-radius: 5px;
-    text-align: center;
-    font-size: 12px;
-    line-height: 24px;
-}
-
 .popup .btn-cancel {
     position: absolute;
     width: 61px;
@@ -1072,7 +1026,7 @@ footer .bottom .logo {
     position: absolute;
     left: 233px;
     width: 525px;
-    height: 600px;
+    min-height: 800px;
     background: #FFFFFF;
     border: 1px solid #DBDBDB;
     box-sizing: border-box;
@@ -1109,17 +1063,43 @@ footer .bottom .logo {
 
 .reserve .passengerCount {
     position: absolute;
-    top: 335px;
-    right: 20px;
-    width: 75px;
-    height: 40px;
+    left: 430px;
+    bottom: 240px;
+}
+
+.reserve .passengerCount .btn {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    background: rgb(99, 89, 126);
+    border-radius: 3px;
+    font-size: 12px;
+    color: #FFF;
+    text-align: center;
+    line-height: 24px;
+    cursor: pointer;
+}
+
+.reserve .passengerCount .btn.disabled {
+    background: #A19DAC;
+    cursor: not-allowed;
+}
+
+.reserve .passengerCount .btn-plus {
+    top: 0px;
+    left: 51px;
+}
+
+.reserve .passengerCount .count {
+    position: absolute;
+    width: 46px;
+    height: 24px;
     background: #F6F6F6;
     box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.25);
     border-radius: 5px;
-    line-height: normal;
-    font-size: 14px;
-    line-height: 40px;
     text-align: center;
+    font-size: 12px;
+    line-height: 24px;
 }
 
 .reserve .departure-time,
@@ -1210,6 +1190,7 @@ footer .bottom .logo {
     top: 274px;
     font-size: 14px;
     font-weight: normal;
+    margin-top: 5px;
 }
 
 .reserve .calendar-icon {
@@ -1232,6 +1213,39 @@ footer .bottom .logo {
 
 .reserve table tr {
     border-bottom: 1px dotted #E0E0E0;
+}
+
+.reserve {
+    overflow: hidden;
+}
+
+.reserve .passengers {
+    position: absolute;
+    left: 30px;
+    top: 341px;
+    height: 200px;
+    overflow-y: scroll;
+    padding-right: 50px;
+    overflow-x: hidden;
+}
+
+.reserve .passengers .passenger {
+    border-bottom: 1px dotted #A19DAC;
+    width: 464px;
+    margin: 5px 0;
+}
+
+.reserve .passengers .passenger .remove-passenger {
+    position: absolute;
+    font-size: 14px;
+    line-height: 100%;
+    right: 62px;
+    cursor: pointer;
+    padding-top: 5px;
+}
+
+.reserve .passengers.passengers-confirm {
+    top: 194px;
 }
 
 .reserve .btn {
@@ -1557,4 +1571,171 @@ footer .bottom .logo {
     width: 500px;
     border-left: 1px solid #A19DAC;
     padding-left: 20px;
+}
+
+
+/***********************
+* POP UP ADD PASSENGER
+***********************/
+
+.popup-add-passenger {
+    position: absolute;
+    top: 293px;
+    width: 525px;
+    left: 230px;
+    min-height: 500px;
+    margin: 0 auto;
+    background: #FFFFFF;
+    border: 1px solid #DBDBDB;
+    box-sizing: border-box;
+    border-radius: 5px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.35);
+    z-index: 101;
+}
+
+.popup-add-passenger h1 {
+    font-weight: bold;
+    line-height: normal;
+    font-size: 24px;
+    color: #3D3948;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.popup-add-passenger .btn-close {
+    position: absolute;
+    font-size: 18px;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+.popup-add-passenger .form {
+    position: absolute;
+    top: 73px;
+    left: 20px;
+}
+
+.popup-add-passenger .group {
+    margin-bottom: 20px;
+}
+
+.popup-add-passenger input[type="text"],
+.popup-add-passenger input[type="email"] {
+    display: block;
+    width: 465px;
+    height: 24px;
+    padding: 4px 10px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.popup-add-passenger .label {
+    font-size: 14px;
+    font-weight: normal;
+    line-height: normal;
+}
+
+.popup-add-passenger .btn {
+    display: inline-block;
+    font-size: 18px;
+    line-height: 40px;
+}
+
+.popup-add-passenger .btn-cancel {
+    width: 100px;
+    height: 40px;
+    position: absolute;
+    bottom: 20px;
+    left: 55px;
+}
+
+.popup-add-passenger .btn-confirm {
+    width: 340px;
+    height: 40px;
+    position: absolute;
+    bottom: 20px;
+    left: 166px;
+}
+
+.popup-add-passenger input[type="checkbox"] {
+    visibility: hidden;
+}
+
+.popup-add-passenger .checkbox-wrapper {
+    position: absolute;
+    left: 0px;
+}
+
+.popup-add-passenger .label-conditions,
+.popup-add-passenger .label-email {
+    width: 455px;
+    left: 20px;
+    position: relative;
+}
+
+.popup-add-passenger .label-conditions {
+    top: -3px;
+}
+
+.popup-add-passenger .label-email {
+    top: -3px
+}
+
+
+/** Overlay **/
+
+.dark-overlay {
+    position: fixed;
+    z-index: 99;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #000;
+    opacity: 0.6;
+}
+
+
+/** Checkbox **/
+
+input[type=checkbox].checkbox-edgard {
+    position: absolute;
+    z-index: -1000;
+    left: -1000px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    width: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+}
+
+input[type=checkbox].checkbox-edgard+label.checkbox-edgard-2 {
+    padding-left: 18px;
+    height: 12px;
+    display: inline-block;
+    line-height: 12px;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    font-size: 12px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+input[type=checkbox].checkbox-edgard:checked+label.checkbox-edgard-2 {
+    background-position: 0 -12px;
+}
+
+label.checkbox-edgard-2 {
+    background-image: url("../img/check.png");
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
