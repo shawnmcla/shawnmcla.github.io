@@ -85,17 +85,18 @@
     -->
 
         <main>
-            <div id="app-root">
+            <div class="content-wrapper" id="app-root">
                 <div class="dark-overlay" v-if="popupAddPassenger && step === 2"></div>
                 <!-- Section: Breadcrumbs -->
                 <div class="breadcrumbs">
                     <ul>
                         <li class="home"><a href="./"><i title="Accueil" class="fas fa-home"></i> </a></li>
                         <i class="arrow fas fa-caret-right"></i>
-                        <li class="red"><a href="./initiez.html"> Initiez ou joindre un vol </a></li>
+                        <li><a href="./initiez.html"> Initiez ou joindre un vol </a></li>
                         <i class="arrow fas fa-caret-right"></i>
                         <li> Page actuelle</li>
                     </ul>
+                    <div class="breadcrumbs-share"><a href="#">Partagez cette page <div class="icon"><i class="fas fa-envelope"></i></div></a></div>
                 </div>
 
                 <div class="booking-view">
@@ -112,7 +113,7 @@
                     *********************************-->
                     <div v-if="step === 1" class="calendar-view" key="b">
                         <div class="city-selector">
-                            Votre ville:
+                            Départ:
                             <select @change="cityChanged" name="city">
                         <option v-for="city in cities">{{ city }}</option>
                         </select>
@@ -147,7 +148,7 @@
                                     </tr>
                                     <tr id="row2">
                                         <td class="col1" data-date="4"><span class="date">4</span></td>
-                                        <td class="col2" data-date="5"><span class="date ">5</span></td>
+                                        <td class="col2" data-date="5"><span class="date">5</span></td>
                                         <td class="col3" data-date="6"><span class="date">6</span></td>
                                         <td class="col4" data-date="7"><span class="date">7</span></td>
                                         <td class="col5" data-date="8"><span class="date">8</span></td>
@@ -212,8 +213,8 @@
                     <!--*********************************
                                      STEP 2
                     *********************************-->
-                    <div v-else-if="step === 2" key="a">
-                        <h1 class="prompt"> {{firstName + " " + lastName}}, Joindre un vol</h1>
+                    <div class="booking-step" v-else-if="step === 2" key="a">
+                        <h1 class="prompt"> {{user.firstName + " " + user.lastName}}, Joindre un vol</h1>
                         <div class="reserve">
                             <div class="departure"><i class="fas fa-arrow-right"></i> Départ <span class="date blue">{{ dateString }}</span></div>
                             <div class="departure-time"><span class="blue">{{ departureTime }}</span><span>&nbsp;&nbsp;&nbsp;<i class="far fa-clock"></i></span></div>
@@ -229,32 +230,33 @@
 
                             <div class="passengers">
                                 <div v-for="(passenger, index) in flight.passengersToAdd" class="passenger" :class="{'passenger-self': index === 0}"><i class="fas fa-user"></i> &nbsp;{{passenger.first + " " + passenger.last }} <span v-if="index===0" class="blue">(vous)</span> <span v-if="index !== 0" @click="removePassenger(index)" class="remove-passenger" data-passengerIndex="index"><i class="fas fa-times" title="Enlever"></i></span></div>
+                                <div v-if="!flight.isNewFlight" v-for="(passenger, index) in flight.passengers" class="passenger passenger-confirmed"><i class=" fas fa-user "></i> &nbsp;{{passenger.first + " " + passenger.last }}</div>
                             </div>
 
                             <table>
                                 <tr>
                                     <td>Prix total de l'avion</td>
-                                    <td class="right-col blue">{{ totalCost }}</td>
+                                    <td class="right-col blue ">{{ totalCost }}</td>
                                 </tr>
                                 <tr>
                                     <td>Prix par personne actuellement</td>
-                                    <td class="right-col blue">{{ pricePerPerson() }}</td>
+                                    <td class="right-col blue ">{{ pricePerPerson() }}</td>
                                 </tr>
                                 <tr>
                                     <td>Personnes confirmées au vol</td>
-                                    <td class="right-col blue">{{ passengerCount }}/16</td>
+                                    <td class="right-col blue ">{{ passengerCount }}/{{flight.maxPassengers}}</td>
                                 </tr>
                                 <tr>
                                     <td>Prix par personne si vous confirmez</td>
-                                    <td class="right-col blue">{{ pricePerPersonUpdated() }}</td>
+                                    <td class="right-col blue ">{{ pricePerPersonUpdated() }}</td>
                                 </tr>
                             </table>
 
 
-                            <div class="passengerCount">
-                                <!--<div @click="removePassenger" :class="{disabled: passengersToAdd.length<2}" class="btn btn-minus"><i class="fas fa-minus"></i></div>-->
-                                <div class="count">{{ passengersToAddCount }}&nbsp;&nbsp;&nbsp;<i class="fas fa-user"></i></div>
-                                <div @click="addPassenger" :class="{disabled: flight.passengersToAdd.length>=flight.maxPassengers}" class="btn btn-plus"><i class="fas fa-plus"></i></div>
+                            <div class="passengerCount ">
+                                <!--<div @click="removePassenger " :class="{disabled: passengersToAdd.length<2} " class="btn btn-minus "><i class="fas fa-minus "></i></div>-->
+                                <div class="count ">{{ passengersToAddCount }}&nbsp;&nbsp;&nbsp;<i class="fas fa-user "></i></div>
+                                <div @click="addPassenger " :class="{disabled: flight.passengersToAdd.length>=flight.maxPassengers}" class="btn btn-plus"><i class="fas fa-plus"></i></div>
                             </div>
 
                             <div @click="cancel" class="btn btn-warning btn-cancel">Annuler</div>
@@ -265,8 +267,8 @@
                     <!--*********************************
                                      STEP 3
                     *********************************-->
-                    <div v-else-if="step === 3" key="c">
-                        <h1 class="prompt"> {{ firstName + " " + lastName}}, votre confirmation</h1>
+                    <div class="booking-step" v-else-if="step === 3" key="c">
+                        <h1 class="prompt"> {{ user.firstName + " " + user.lastName}}, votre confirmation</h1>
                         <div class="reserve">
                             <div class="departure"><i class="fas fa-arrow-right"></i> Départ <span class="date blue">{{ dateString }} {{ departureTime }}</span></div>
                             <div class="departure-confirm"><b>De :</b> {{ airportName }}</div>
@@ -275,6 +277,7 @@
 
                             <div class="passengers passengers-confirm">
                                 <div v-for="(passenger, index) in flight.passengersToAdd" class="passenger" :class="{'passenger-self': index === 0}"><i class="fas fa-user"></i> &nbsp;{{passenger.first + " " + passenger.last }} <span v-if="index===0" class="blue">(vous)</span></div>
+                                <div v-if="!flight.isNewFlight" v-for="(passenger, index) in flight.passengers" class="passenger passenger-confirmed"><i class=" fas fa-user "></i> &nbsp;{{passenger.first + " " + passenger.last }}</div>
                             </div>
                             <!--
                                 <div class="passengers">
@@ -300,7 +303,7 @@
                                 </tr>
                                 <tr>
                                     <td>Personnes confirmées au vol</td>
-                                    <td class="right-col blue">{{ passengerCount }}/16</td>
+                                    <td class="right-col blue">{{ passengerCount }}/{{flight.maxPassengers}}</td>
                                 </tr>
                                 <tr>
                                     <td>Prix par personne actuellement</td>
@@ -328,7 +331,7 @@
                     <!--- *********************
                                 STEP 4
                     ************************** -->
-                    <div v-else-if="step === 4" key="d">
+                    <div class="booking-step" v-else-if="step === 4" key="d">
                         <h1 class="prompt"> Félicitation Yannick, vous avez joint ce vol</h1>
                         <h3 class="email-prompt">Un courriel de confirmation sera envoyé à <span class="email-address">utilisateur@email.com</span></h3>
                         <div class="reserve">
@@ -338,6 +341,7 @@
                             <div class="return-confirm"><i class="fas fa-arrow-left"></i> Retour <span class="blue">le {{ returnDateString }} {{ returnTime }}</span></div>
                             <div class="passengers passengers-confirm">
                                 <div v-for="(passenger, index) in flight.passengersToAdd" class="passenger" :class="{'passenger-self': index === 0}"><i class="fas fa-user"></i> &nbsp;{{passenger.first + " " + passenger.last }} <span v-if="index===0" class="blue">(vous)</span></div>
+                                <div v-if="!flight.isNewFlight" v-for="(passenger, index) in flight.passengers" v-if="passenger.id != user.id" class="passenger passenger-confirmed"><i class=" fas fa-user "></i> &nbsp;{{passenger.first + " " + passenger.last }}</div>
                             </div>
                             <!--
                                 <div class="passengers">
@@ -363,7 +367,7 @@
                                 </tr>
                                 <tr>
                                     <td>Personnes confirmées au vol</td>
-                                    <td class="right-col blue">{{passengerCount}} / 16</td>
+                                    <td class="right-col blue">{{passengerCount}} / {{flight.maxPassengers}}</td>
                                 </tr>
                                 <tr>
                                     <td>Votre total</td>
@@ -381,7 +385,16 @@
                         <div class="prompt">Initiez un vol</div>
                         <div class="btn-close" @click="closePopup('initiate')"><i title="Fermer" class="fas fa-times"></i></div>
                         <div class="departure">Départ <span class="date">{{ dateString }}</span></div>
+                        <!--
                         <div class="departure-time"><input type="text" v-model="departureTime" id="departureTime" placeholder="hr:mn" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]" value="11:30" /></div>
+                        -->
+                        <select v-model="departureTime" class="departure-time" id="departureTime">
+                                <template v-for="h in 24">
+                                    <template v-for="m in 4">
+                                        <option> {{ h-1 + ":" + ((m-1)*15 == 0 ? "00" : (m-1)*15) }} </option>
+                                    </template>
+                                </template>
+                        </select>
                         <div class="departure-location"><input type="text" v-bind:value="airportName" readonly></div>
                         <div class="locate-link-from"><a target="_blank" :href="departureLocationLink">Localiser l'aéroport</a></div>
                         <div class="destination-location">
@@ -394,12 +407,25 @@
                         <div class="divider-arrow"><i class="fas fa-caret-down"></i></div>
                         <div class="return">Retour</div>
                         <input type="date" v-model="returnDate" class="returnDate" />
+                        <!--
                         <input type="text" v-model="returnTime" class="returnTime" placeholder="hr:mn" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]" value="19:30" />
-
+                        -->
+                        <select v-model="returnTime" class="returnTime">
+                            <template v-for="h in 24">
+                                <template v-for="m in 4">
+                                    <option> {{ h-1 + ":" + ((m-1)*15 == 0 ? "00" : (m-1)*15) }} </option>
+                                </template>
+                            </template>
+                        </select>
+                        <!--
+                        <div class="time-picker-icon">
+                            <i class="far fa-clock"></i>
+                        </div>
+                    -->
                         <table>
                             <tr>
                                 <td>Personnes confirmées au vol</td>
-                                <td class="right-col">{{passengerCount}}/16</td>
+                                <td class="right-col">{{passengerCount}}/{{flight.maxPassengers}}</td>
                             </tr>
                             <tr>
                                 <td>Prix par personne actuellement</td>
@@ -415,18 +441,64 @@
                             </tr>
                         </table>
                         <div class="bottom">
-                            <!--
-                            <div class="passengerCount">
-                                <div @click="removePassenger" :class="{disabled: passengersToAdd.length<2}" class="btn btn-minus"><i class="fas fa-minus"></i></div>
-                                <div class="count">{{ passengersToAddCount }}&nbsp;&nbsp;&nbsp;<i class="fas fa-user"></i></div>
-                                <div @click="addPassenger" :class="{disabled: passengersToAdd.length>=flight.maxPassengers}" class="btn btn-plus"><i class="fas fa-plus"></i></div>
-                            </div>
-                        -->
                             <div @click="closePopup('initiate')" class="btn btn-warning btn-cancel">Annuler</div>
                             <div @click="initiateFlight" class="btn btn-success btn-initiate-flight">Initiez votre vol</div>
                         </div>
                         <svg class="arrow" width="21" height="18" viewBox="0 0 21 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Canvas" transform="translate(-21040 -6472)"><g id="Polygon"><use xlink:href="#path0_fill" transform="matrix(-1 -1.22465e-16 1.22465e-16 -1 21060.8 6490)" fill="#FFFFFF"/></g></g><defs><path id="path0_fill" d="M 10.3923 0L 20.7846 18L -5.18951e-08 18L 10.3923 0Z"/></defs></svg>
                     </div>
+
+                    <div id="popupJoin" v-if="popupJoin && step === 1" class="popup popup-initiate">
+                        <div class="prompt">Joindre ce vol</div>
+                        <div class="btn-close" @click="closePopup('join')"><i title="Fermer" class="fas fa-times"></i></div>
+                        <div class="departure">Départ <span class="date">{{ dateString }}</span></div>
+                        <!--
+                            <div class="departure-time"><input type="text" v-model="departureTime" id="departureTime" placeholder="hr:mn" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]" value="11:30" /></div>
+                            -->
+                        <input type="text" v-model="departureTime" class="departure-time" id="departureTime" readonly>
+                        <div class="departure-location"><input type="text" v-bind:value="airportName" readonly></div>
+                        <div class="locate-link-from"><a target="_blank" :href="departureLocationLink">Localiser l'aéroport</a></div>
+                        <div class="destination-location"><input type="text" v-bind:value="flight.airportTo.name">
+                        </div>
+                        <div class="locate-link-to"><a target="_blank" :href="destinationLocationLink">Localiser l'aéroport</a></div>
+                        <div class="divider"></div>
+                        <div class="divider-arrow"><i class="fas fa-caret-down"></i></div>
+                        <div class="return">Retour</div>
+                        <input type="text" v-model="returnDateString" class="returnDate" readonly/>
+                        <!--
+                            <input type="text" v-model="returnTime" class="returnTime" placeholder="hr:mn" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]" value="19:30" />
+                            -->
+                        <select v-model="returnTime" class="returnTime">
+                                <template v-for="h in 24">
+                                    <template v-for="m in 4">
+                                        <option> {{ h-1 + ":" + ((m-1)*15 == 0 ? "00" : (m-1)*15) }} </option>
+                                    </template>
+                                </template>
+                            </select>
+                        <table>
+                            <tr>
+                                <td>Personnes confirmées au vol</td>
+                                <td class="right-col">{{passengerCount}}/{{flight.maxPassengers}}</td>
+                            </tr>
+                            <tr>
+                                <td>Prix par personne actuellement</td>
+                                <td class="right-col">{{ pricePerPerson() }}</td>
+                            </tr>
+                            <tr>
+                                <td>Prix par personne si vous confirmez</td>
+                                <td class="right-col">{{ pricePerPersonUpdated() }}</td>
+                            </tr>
+                            <tr>
+                                <td>Prix total de l'avion</td>
+                                <td class="right-col">{{ totalCost }}</td>
+                            </tr>
+                        </table>
+                        <div class="bottom">
+                            <div @click="closePopup('join')" class="btn btn-warning btn-cancel btn-cancel-join">Annuler</div>
+                            <div @click="joinFlight" class="btn btn-success btn-join-flight">Joindre ce vol</div>
+                        </div>
+                        <svg class="arrow" width="21" height="18" viewBox="0 0 21 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Canvas" transform="translate(-21040 -6472)"><g id="Polygon"><use xlink:href="#path0_fill" transform="matrix(-1 -1.22465e-16 1.22465e-16 -1 21060.8 6490)" fill="#FFFFFF"/></g></g><defs><path id="path0_fill" d="M 10.3923 0L 20.7846 18L -5.18951e-08 18L 10.3923 0Z"/></defs></svg>
+                    </div>
+
 
                     <div class="popup-add-passenger" v-if="popupAddPassenger && step === 2">
                         <div class="btn-close"><i class="fas fa-times" title="Fermer"></i></div>
@@ -492,8 +564,26 @@
         -->
                 </div>
             </div>
-            <div class="featured-bundles ">
-                <img src="./static/img/forfaits.png " />
+            <div class="featured-bundles">
+                <div class="wrapper">
+                    <div class="prev"><i class="fas fa-angle-left"></i></div>
+
+                    <div class="info-wrapper">
+                        <div class="info">
+                            <div class="btn btn-category">
+                                <a href="#">Forfaits sportif</a>
+                            </div>
+                            <h1>Rouyn Noranda à New York</h1>
+                            <h2>Canadiens Vs Rangers</h2>
+                            <p>
+                                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cupiditate quasi aliquam quidem dicta molestiae praesentium, illo tempore blanditiis ut facilis.
+                            </p>
+
+                            <div class="btn btn-book-bundle">Réservez d'ici le 25 novembre <i class="fas fa-angle-right"></i></div>
+                        </div>
+                    </div>
+                    <div class="next"><i class="fas fa-angle-right"></i></div>
+                </div>
             </div>
         </main>
 
@@ -504,57 +594,57 @@
 
         <footer>
             <div class="main ">
-
-                <div class="left ">
-                    <h1>Edgard</h1>
-                    <div class="footer-about ">
-                        <a href="./apropos.html ">À propos d'Egard</a>
+                <div class="footer-content">
+                    <div class="left ">
+                        <h1>Edgard</h1>
+                        <div class="footer-about ">
+                            <a href="./apropos.html ">À propos d'Egard</a>
+                        </div>
+                        <div class="social ">
+                            <div class="social-icon ">
+                                <a href="# "><img src="./static/img/youtube.svg " alt="YouTube " /></a>
+                            </div>
+                            <div class="social-icon ">
+                                <a href="# "><img src="./static/img/twitter.svg " alt="Twitter " /></a>
+                            </div>
+                            <div class="social-icon ">
+                                <a href="# "><img src="./static/img/facebook.svg " alt="Facebook " /></a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="social ">
-                        <div class="social-icon ">
-                            <a href="# "><img src="./static/img/youtube.svg " alt="YouTube " /></a>
-                        </div>
-                        <div class="social-icon ">
-                            <a href="# "><img src="./static/img/twitter.svg " alt="Twitter " /></a>
-                        </div>
-                        <div class="social-icon ">
-                            <a href="# "><img src="./static/img/facebook.svg " alt="Facebook " /></a>
-                        </div>
+
+                    <div class="center ">
+                        <h1>Pour nous joindre</h1>
+                        <ul>
+                            <li><a href="contact.html ">Coordonnées</a></li>
+                            <li><a href="edgard.html ">Pourquoi réserver avec Edgard</a></li>
+                            <li><a href="# ">Nos destinations</a></li>
+                            <li><a href="# ">Vols vers le Canada</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="right ">
+                        <h1>Offres électroniques</h1>
+                        <input type="email " placeholder="Votre courriel " />
+                        <div class="email-icon "><i class="fas fa-envelope "></i></div>
+                        <div class="btn btn-red btn-signup ">S'abonner</div>
+                        <div class="modify "><a href="# ">Modifier les préférences</a></div>
                     </div>
                 </div>
-
-                <div class="center ">
-                    <h1>Pour nous joindre</h1>
-                    <ul>
-                        <li><a href="contact.html ">Coordonées</a></li>
-                        <li><a href="edgard.html ">Pourquoi réserver avec Edgard</a></li>
-                        <li><a href="# ">Nos destinations</a></li>
-                        <li><a href="# ">Vols vers le Canada</a></li>
-                    </ul>
-                </div>
-
-                <div class="right ">
-                    <h1>Offres électroniques</h1>
-                    <input type="email " placeholder="Votre courriel " />
-                    <div class="email-icon "><i class="fas fa-envelope "></i></div>
-                    <div class="btn btn-red btn-signup ">S'abonner</div>
-                    <div class="modify "><a href="# ">Modifier les préférences</a></div>
-                </div>
-
             </div>
             <div class="bottom ">
-                <div class="links ">
-                    <ul>
-                        <li>&copy; 2018 Edgard</li>
-                        <li><a href="# ">Conditions générales de transport et tarifs</a></li>
-                        <li><a href="# ">Plan de service clientèle</a></li>
-                        <li><a href="# ">Confidentialité</a></li>
-                        <li><a href="# ">Conditions d'utilisation</a></li>
-                    </ul>
+                <div class="footer-content">
+                    <div class="links ">
+                        <ul>
+                            <li>&copy; 2018 Edgard</li>
+                            <li><a href="# ">Conditions générales de transport et tarifs</a></li>
+                            <li><a href="# ">Plan de service clientèle</a></li>
+                            <li><a href="# ">Confidentialité</a></li>
+                            <li><a href="# ">Conditions d'utilisation</a></li>
+                        </ul>
+                    </div>
                 </div>
-
             </div>
-
         </footer>
     </div>
 

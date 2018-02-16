@@ -88,7 +88,17 @@ var MOCK_DATA = {
         new Airport("CYZV", "Sept-Îles", 50.22330093, -66.26560211),
     ].sort(compare),
     flights: [],
-
+    passengers: [
+        new Passenger("John", "Doe", "john@doe.com"),
+        new Passenger("Joanne", "Prime", "jprime@gmail.com"),
+        new Passenger("Valerie", "Rose", "vrose@tele.com"),
+        new Passenger("Kais", "Thomas", "kthomas@karaoke.com"),
+        new Passenger("Simon", "Laporte", "slap@hotmail.ca"),
+        new Passenger("Katerine", "Simmoneaux", "k.sim@telus.net"),
+        new Passenger("Jeremie", "Paul", "jerejere@rogers.com"),
+        new Passenger("Anne", "LaBanane", "alab@hotmail.com"),
+        new Passenger("Shawn", "McLaughlin", "shawnmcdev@gmail.com"),
+    ]
 
 };
 
@@ -99,13 +109,15 @@ function Airport(code, name, lat, lon) {
     this.lon = lon;
 }
 
-function Flight(airportFrom, airportTo, departureDate, departureTime, returnDate, returnTime, maxPassengers = 16) {
+function Flight(airportFrom, airportTo, departureDate, departureTime, returnDate, returnTime, maxPassengers, isNewFlight = true) {
+    this.id = Flight.id++;
     this.departureDate = departureDate;
     this.departureTime = departureTime;
     this.returnDate = returnDate;
     this.returnTime = returnTime;
+    this.isNewFlight = isNewFlight;
     this.airportFrom = airportFrom;
-    this.maxPassengers = maxPassengers;
+    this.maxPassengers = maxPassengers || 9;
     this.airportTo = airportTo;
     if (this.airportFrom && this.airportTo) {
         this.distance = distanceInMiles(this.airportFrom.lat, this.airportFrom.lon, this.airportTo.lat, this.airportTo.lon);
@@ -119,22 +131,40 @@ function Flight(airportFrom, airportTo, departureDate, departureTime, returnDate
     this.passengers = [];
     this.passengersToAdd = [];
 }
+Flight.prototype.currentPricePer = function() {
+    return (this.totalCost / Math.max(this.passengers.length, 1)).toFixed(2);
+};
+Flight.prototype.priceAddedPassengers = function(amt) {
+    amt = Math.max(amt, 1);
+    console.log("Calculating price adding " + amt + " passengers");
+    return (this.totalCost / Math.max(this.passengers.length + amt, 1)).toFixed(2);
+};
+Flight.prototype.priceIfFull = function() {
+    return (this.totalCost / this.maxPassengers).toFixed(2);
+};
+Flight.prototype.getPassengerCount = function() {
+    return this.passengers.length;
+}
+Flight.prototype.getStatus = function() {
+    if (this.getPassengerCount() === this.maxPassengers) return Flight.STATUS.FULL;
+    else if (this.getPassengerCount() >= this.maxPassengers - 2) return Flight.STATUS.ALMOST_FULL;
+    else return Flight.STATUS.INITIATED;
+}
+Flight.STATUS = {
+    "INITIATED": 0,
+    "ALMOST_FULL": 1,
+    "FULL": 2,
+}
+Flight.id = 0;
 
 function Passenger(first, last, email) {
     this.first = first;
     this.last = last;
     this.email = email;
+    this.id = Passenger.id++;
 }
+Passenger.id = 0;
 
-Flight.prototype.currentPricePer = function() {
-    return (this.totalCost / Math.max(this.passengers.length, 1)).toFixed(2);
-};
-Flight.prototype.priceAddedPassengers = function(amt) {
-    return (this.totalCost / Math.max((Math.max(this.passengers.length, 1) + amt), 1)).toFixed(2);
-};
-Flight.prototype.priceIfFull = function() {
-    return (this.totalCost / this.maxPassengers).toFixed(2);
-};
 
 /**
  * Mock Services
@@ -150,8 +180,27 @@ var services = {
         }
     },
     flight: {
-        getForMonth: function(month) {
-            return MOCK_DATA.flights.filter(x => x.departureDate.getMonth() === month);
+        getForMonth: function(month, location) {
+            let flights = MOCK_DATA.flights.filter(x => x.departureDate.getUTCMonth() === month);
+            let data = {};
+            if (location) {
+                console.log("Filtering for location: " + location);
+                flights = flights.filter(f => {
+                    console.log("Comparing " + f.airportFrom.name + " to " + location);
+                    console.log(f.airportFrom.name == location);
+                    return f.airportFrom.name === location;
+                });
+            }
+            flights.forEach(f => {
+                let date = f.departureDate.getUTCDate();
+                if (data[date]) data[date].push(f);
+                else data[date] = [f];
+            });
+            return data;
+        },
+        getById: function(id) {
+            console.log("Fetching flight for id: " + id);
+            return MOCK_DATA.flights.filter(x => x.id == id)[0];
         }
     },
     user: {
@@ -159,142 +208,64 @@ var services = {
     },
 };
 
+var mock_flight_data = JSON.parse("{\"departureDate\":\"2018-02-21T05:00:00.000Z\",\"departureTime\":\"11:00\",\"returnDate\":\"2018-02-22\",\"returnTime\":\"19:00\",\"airportFrom\":{\"code\":\"CYUY\",\"name\":\"Rouyn-Noranda\",\"lat\":48.20610046,\"lon\":-78.83560181},\"maxPassengers\":9,\"airportTo\":{\"code\":\"CYTF\",\"name\":\"Alma\",\"lat\":48.50889969,\"lon\":-71.64189911},\"distance\":330.8099229903399,\"totalCost\":7443.223267282648,\"passengers\":[{\"first\":\"Bob\",\"last\":\"Pogo\",\"email\":\"yrich@gmail.com\"},{\"first\":\"a\",\"last\":\"b\",\"email\":\"c\"}],\"passengersToAdd\":[]}");
+var mock_flight = new Flight();
+Object.keys(mock_flight_data).forEach(k => {
+    mock_flight[k] = mock_flight_data[k];
+});
+mock_flight.departureDate = new Date(mock_flight.departureDate);
+mock_flight.returnDate = new Date(mock_flight.returnDate);
+mock_flight.isNewFlight = false;
 //MOCK_DATA.flights.push(new Flight("CYVO", "CYUL", new Date(), new Date()));
+MOCK_DATA.flights.push(mock_flight);
+let flight = new Flight(MOCK_DATA.airports[27], MOCK_DATA.airports[29], new Date(2018, 01, 22), "12:45", new Date(2018, 01, 27), "0:00", 9, false);
+flight.passengers = MOCK_DATA.passengers.slice(0);
+MOCK_DATA.flights.push(flight);
+flight = new Flight(MOCK_DATA.airports[27], MOCK_DATA.airports[2], new Date(2018, 01, 19), "12:45", new Date(2018, 01, 27), "0:00", 9, false);
+flight.passengers = MOCK_DATA.passengers.slice(2);
+MOCK_DATA.flights.push(flight);
+flight = new Flight(MOCK_DATA.airports[27], MOCK_DATA.airports[0], new Date(2018, 01, 19), "13:45", new Date(2018, 01, 27), "0:00", 9, false);
+flight.passengers = MOCK_DATA.passengers.slice(5);
+MOCK_DATA.flights.push(flight);
 
+function CalendarFlight(flight, i) {
+    let div = document.createElement("div");
+    div.classList.add("calendar-flight");
+    switch (flight.getStatus()) {
+        case Flight.STATUS.FULL:
+            div.classList.add("full");
+            break;
+        case Flight.STATUS.ALMOST_FULL:
+            div.classList.add("almost-full");
+            break;
+        default:
+            break;
+    }
+    div.setAttribute("data-flightid", flight.id);
+    let locations = document.createElement("div");
+    locations.classList.add("locations");
+    div.appendChild(locations);
+    locations.innerText = flight.airportFrom.name + " > " + flight.airportTo.name;
+    if (i === 0) {
+        div.classList.add("first");
+        let passengerCount = document.createElement("div");
+        passengerCount.classList.add("passengerCount");
+        let infoBtn = document.createElement("div");
+        infoBtn.classList.add("infoBtn");
+        passengerCount.innerHTML = "<span>" + flight.passengers.length + "/" + flight.maxPassengers + "</span> <i class='fas fa-user'></i>";
+        infoBtn.innerHTML = "<i class='fas fa-info-circle'></i>";
+        div.appendChild(passengerCount);
+        div.appendChild(infoBtn);
+    } else {
+        div.style = "top: " + (60 + (i - 1) * 14) + "px";
+    }
+    return div;
+}
 /**
  * VUE JS
  */
 /*
-var PopupJoin = {
-    template: `                <div class="popup popup-join">
-     <div class="prompt">Joindre ce vol</div>
-     <div class="btn-close"><i title="Fermer" class="fas fa-times"></i></div>
-     <div class="departure">Départ <span class="date">le 15 février</span></div>
-     <div class="departure-time"><input type="text" id="departureTime" placeholder="hr:mn" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]" value="11:30" readonly/></div>
-     <div class="departure-location"><input type="text" value="Aéroport régional de Rouyn-Noranda" readonly></div>
-     <div class="locate-link-from"><a href="#">Localiser l'aéroport</a></div>
-     <div class="destination-location"><input type="text" value="Montréal-Les Cèdres" readonly></div>
-     <div class="locate-link-to"><a href="#">Localiser l'aéroport</a></div>
-     <div class="divider"></div>
-     <div class="divider-arrow"><i class="fas fa-caret-down"></i></div>
-     <div class="return">Retour</div>
-     <input type="date" class="returnDate" value="0" />
-     <input type="text" class="returnTime" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]" placeholder="hr:mn" value="19:30" readonly/>
 
-     <table>
-         <tr>
-             <td>Personnes confirmées au vol</td>
-             <td class="right-col">9/18</td>
-         </tr>
-         <tr>
-             <td>Prix par personne actuellement</td>
-             <td class="right-col">328.57$</td>
-         </tr>
-         <tr>
-             <td>Prix par personne si vous confirmez</td>
-             <td class="right-col">306.67$</td>
-         </tr>
-         <tr>
-             <td>Prix total de l'avion</td>
-             <td class="right-col">6656.79$</td>
-         </tr>
-     </table>
-     <div class="share">Partagez <span class="share-icon"><i class="fas fa-share-alt"></i></span><span class="share-icon"><i class="fas fa-check-square"></i></span> </div>
-     <div class="passengerCount">
-         <div class="btn btn-minus disabled"><i class="fas fa-minus"></i></div>
-         <div class="count">1&nbsp;&nbsp;&nbsp;<i class="fas fa-user"></i></div>
-         <div class="btn btn-plus disabled"><i class="fas fa-plus"></i></div>
-     </div>
-     <div class="btn btn-warning btn-cancel">Annuler</div>
-     <div class="btn btn-success btn-join-flight">Joindre ce vol</div>
-     <svg class="arrow" width="21" height="18" viewBox="0 0 21 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Canvas" transform="translate(-21040 -6472)"><g id="Polygon"><use xlink:href="#path0_fill" transform="matrix(-1 -1.22465e-16 1.22465e-16 -1 21060.8 6490)" fill="#FFFFFF"/></g></g><defs><path id="path0_fill" d="M 10.3923 0L 20.7846 18L -5.18951e-08 18L 10.3923 0Z"/></defs></svg>
- </div>`,
-    data: function() {
-        return {
-
-        };
-    }
-};
-
-Vue.component('popup-initiate', {
-    template: `<div class="popup popup-initiate">
-    <div class="prompt">Initiez un vol</div>
-    <div class="btn-close" @click="close"><i title="Fermer" class="fas fa-times"></i></div>
-    <div class="departure">Départ <span class="date">le 20 février</span></div>
-    <div class="departure-time"><input type="text" v-model="departureTime" id="departureTime" placeholder="hr:mn" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]" value="11:30" /></div>
-    <div class="departure-location"><input type="text" v-bind:value="airportName" readonly></div>
-    <div class="locate-link-from"><a href="#">Localiser l'aéroport</a></div>
-    <div class="destination-location">
-    <select @change="destinationChanged" class="destination-dropdown" name="destinationCity">
-    <option v-for="city in cities">{{ city }}</option>
-    </select>
-    </div>
-    <div class="locate-link-to"><a href="#">Localiser l'aéroport</a></div>
-    <div class="divider"></div>
-    <div class="divider-arrow"><i class="fas fa-caret-down"></i></div>
-    <div class="return">Retour</div>
-    <input type="date" v-model="returnDate" class="returnDate" value="Febuary 28th 2017" />
-    <input type="text" v-model="returnTime" class="returnTime" placeholder="hr:mn" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]" value="19:30" />
-
-    <table>
-        <tr>
-            <td>Personnes confirmées au vol</td>
-            <td class="right-col">1/18</td>
-        </tr>
-        <tr>
-            <td>Prix par personne actuellement</td>
-            <td class="right-col">328.57$</td>
-        </tr>
-        <tr>
-            <td>Prix par personne si vous confirmez</td>
-            <td class="right-col">306.67$</td>
-        </tr>
-        <tr>
-            <td>Prix total de l'avion</td>
-            <td class="right-col">6656.79$</td>
-        </tr>
-    </table>
-    <div class="share">Partagez <span class="share-icon"><i class="fas fa-share-alt"></i></span><span class="share-icon"><i class="fas fa-check-square"></i></span> </div>
-    <div class="passengerCount">
-        <div class="btn btn-minus disabled"><i class="fas fa-minus"></i></div>
-        <div class="count">1&nbsp;&nbsp;&nbsp;<i class="fas fa-user"></i></div>
-        <div class="btn btn-plus disabled"><i class="fas fa-plus"></i></div>
-    </div>
-    <div @click="close" class="btn btn-warning btn-cancel">Annuler</div>
-    <div @click="initiate" class="btn btn-success btn-initiate-flight">Initiez votre vol</div>
-    <svg class="arrow" width="21" height="18" viewBox="0 0 21 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Canvas" transform="translate(-21040 -6472)"><g id="Polygon"><use xlink:href="#path0_fill" transform="matrix(-1 -1.22465e-16 1.22465e-16 -1 21060.8 6490)" fill="#FFFFFF"/></g></g><defs><path id="path0_fill" d="M 10.3923 0L 20.7846 18L -5.18951e-08 18L 10.3923 0Z"/></defs></svg>
-</div>`,
-    data: function() {
-        return {
-            departureDate: date,
-            departureTime: 0,
-            destination: 0,
-            returnDate: 0,
-            returnTime: 0,
-        };
-    },
-    //props: ['airportName', 'date', 'cities', 'show'],
-    methods: {
-        close: function() {
-            console.log("Close");
-            bus.$emit('close', "initiate");
-        },
-        initiate: function() {
-            console.log("Initiating flight..");
-            if (timeRegex.test(this.departureTime) && timeRegex.test(this.returnTime)) {
-                console.log("Valid times");
-                bus.$emit('initiate', this);
-            } else {
-                console.log("Invalid time(s) specified");
-            }
-        },
-        destinationChanged: function() {
-            console.log("Emitting destination change event..");
-            bus.$emit('destinationChanged', document.getElementsByName("destinationCity")[0].selectedIndex);
-        }
-    }
-});
-*/
 /** Global Event Bus */
 var bus = new Vue();
 var state = {
@@ -313,8 +284,14 @@ var state = {
     departureTime: "11:00",
     returnDate: new Date(2018, 01, 28),
     returnTime: "19:00",
-    firstName: "Yannick",
-    lastName: "Richard",
+    services: services,
+    monthFlights: {},
+    user: {
+        id: 0,
+        firstName: "Yannick",
+        lastName: "Richard",
+        email: "yrich@gmail.com"
+    },
     passengerFirstName: "",
     passengerLastName: "",
     passengerEmail: "",
@@ -327,24 +304,41 @@ var app = new Vue({
         calendarClick: function(event) {
             console.log(event);
             let target = event.target;
-            if (!this.popupInitiate) {
-                if (target.tagName != "TD") {
-                    console.log("Clicked " + target.tagName);
-                    target = target.parentNode;
-                    if (target.tagName != "TD") {
-                        console.log("Clicked: " + target.tagName);
-                        return false;
-                    }
+            if (!this.popupInitiate && !this.popupJoin) {
+                if (target.tagName === "TD") { //clicked calendar cell
+                    let date = target.getAttribute('data-date');
+                    if (!date) return false;
+                    this.date = new Date("02/" + date + "/2018");
+                    this.popupInitiate = true;
+                    this.updateFlight();
+                    return;
                 }
-                let date = target.getAttribute('data-date');
-                if (!date) return false;
-                this.date = new Date("02/" + date + "/2018");
-                this.popupInitiate = true;
+                if (target.hasAttribute("data-flightid")) {
+                    this.setFlight(services.flight.getById(target.getAttribute("data-flightid")));
+                    return;
+                } else {
+                    target = target.parentNode;
+                    if (target.tagName === "TD") { //clicked calendar cell
+                        let date = target.getAttribute('data-date');
+                        if (!date) return false;
+                        this.date = new Date("02/" + date + "/2018");
+                        this.popupInitiate = true;
+                        this.updateFlight();
+                        return;
+                    }
+                    if (target.hasAttribute("data-flightid")) {
+                        this.setFlight(services.flight.getById(target.getAttribute("data-flightid")));
+                        return;
+                    }
+                    return;
+                }
+
             }
         },
         cityChanged: function() {
             this.cityIndex = document.getElementsByName("city")[0].selectedIndex;
             console.log("City changed to index " + this.cityIndex);
+            this.populateCalendar();
         },
         getOrigin: function() {
             return this.airports[this.cityIndex];
@@ -357,18 +351,24 @@ var app = new Vue({
             return ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"][index];
         },
         closePopup: function(which) {
+            this.flight = {};
             if (which === "initiate") this.popupInitiate = false;
             else if (which === "join") this.popupJoin = false;
         },
         destinationChanged: function() {
             this.destinationIndex = document.getElementsByName("destinationCity")[0].selectedIndex;
+            this.updateFlight();
+        },
+        joinFlight: function() {
+            console.log("Joining flight..");
+            this.step = 2;
         },
         initiateFlight: function() {
             console.log("Initiating flight..");
             if (timeRegex.test(this.departureTime) && timeRegex.test(this.returnTime)) {
                 console.log("Valid times");
                 this.flight = new Flight(this.getOrigin(), this.getDestination(), new Date(this.date), this.departureTime, this.returnDate, this.returnTime);
-                this.flight.passengersToAdd.push(new Passenger("Yannick", "Richard", "yrich@gmail.com"));
+                this.flight.passengersToAdd.push(new Passenger(this.user.firstName, this.user.lastName, this.user.email));
                 console.log("Initiated flight:" + JSON.stringify(this.flight));
                 this.step = 2;
             } else {
@@ -380,6 +380,18 @@ var app = new Vue({
             if (this.flight.passengersToAdd.length < this.flight.maxPassengers) {
                 this.popupAddPassenger = true;
             }
+        },
+        setFlight: function(flight) {
+            this.flight = flight;
+            this.date = flight.departureDate;
+            this.departureTime = flight.departureTime;
+            //this.returnDate = "" + this.flight.returnDate.getUTCDate() + " " + this.getMonthName(this.flight.returnDate.getMonth()) + " " + this.flight.returnDate.getFullYear();
+            this.returnDate = this.flight.returnDate;
+            this.returnTime = flight.returnTime;
+            this.origin = flight.airportFrom;
+            this.destination = flight.airportTo;
+            this.flight.passengersToAdd.push(new Passenger(this.user.firstName, this.user.lastName, this.user.email));
+            this.popupJoin = true;
         },
         closeAddPassenger: function() {
             console.log("Cancelling passenger..");
@@ -402,14 +414,14 @@ var app = new Vue({
         },
         pricePerPersonUpdated: function() {
             if (!this.flight.currentPricePer) return "--.--$";
-            else return this.flight.priceAddedPassengers(this.passengersToAddCount - 1) + "$";
+            else return this.flight.priceAddedPassengers(this.passengersToAddCount) + "$";
         },
         priceIfFull: function() {
             if (!this.flight.priceIfFull) return "--.--$";
             else return this.flight.priceIfFull() + "$";
         },
         cancel: function() {
-            if (confirm("Annuler la création du vol?")) {
+            if (confirm("Annuler et retourner à la page d'accueil?")) {
                 location.href = "./";
             }
         },
@@ -422,9 +434,40 @@ var app = new Vue({
         confirm: function() {
             this.flight.passengers.push(...this.flight.passengersToAdd);
             this.step = 4;
+            if (this.flight.isNewFlight)
+                MOCK_DATA.flights.push(this.flight);
         },
         done: function() {
-            location.href = './';
+            //location.href = './initiez.html';
+            this.flight = {};
+            this.popupInitiate = false;
+            this.popupJoin = false;
+            this.step = 1;
+        },
+        updateFlight: function() {
+            this.flight = new Flight(this.getOrigin(), this.getDestination(), new Date(this.date), this.departureTime, this.returnDate, this.returnTime);
+        },
+        clearCalendar: function() {
+            document.querySelectorAll(".calendar-flight")
+                .forEach(elem => {
+                    elem.parentNode.removeChild(elem);
+                });
+        },
+        populateCalendar: function() {
+            console.log("Clearing calendar..");
+            this.clearCalendar();
+            this.monthFlights = {};
+            console.log("Populating calendar..");
+            this.monthFlights = this.services.flight.getForMonth(1, this.getOrigin().name);
+            document.querySelectorAll("[data-date]").forEach(elem => {
+                let first = true;
+                let flights = this.monthFlights[elem.getAttribute("data-date")];
+                if (flights)
+                    flights.forEach((f, i) => {
+                        elem.appendChild(CalendarFlight(f, i));
+                        first = false;
+                    });
+            });
         }
     },
     computed: {
@@ -460,21 +503,34 @@ var app = new Vue({
     },
     watch: {
         returnDate: function() {
-            console.log("Initiating flight..");
-            if (timeRegex.test(this.departureTime) && timeRegex.test(this.returnTime)) {
-                console.log("Valid times");
-                this.flight = new Flight(this.getOrigin(), this.getDestination(), new Date(this.date), this.departureTime, this.returnDate, this.returnTime);
-                this.initialCost = this.flight.totalCost;
-                console.log("Initiated flight:" + JSON.stringify(this.flight));
-            } else {
-                console.log("Invalid time(s) specified");
+            if (this.flight.isNewFlight) {
+                console.log("Initiating flight..");
+                if (timeRegex.test(this.departureTime) && timeRegex.test(this.returnTime)) {
+                    console.log("Valid times");
+                    this.updateFlight();
+                    this.flight.returnDate = new Date(this.date);
+                    this.initialCost = this.flight.totalCost;
+                    console.log("Initiated flight:" + JSON.stringify(this.flight));
+                } else {
+                    console.log("Invalid time(s) specified");
+                }
             }
         },
-
+        step: function() {
+            console.log("Step changed..");
+            if (this.step === 1) {
+                let _this = this;
+                Vue.nextTick()
+                    .then(function() {
+                        document.getElementsByName("city")[0].selectedIndex = 27;
+                        _this.populateCalendar();
+                    });
+            }
+        }
     },
     created: function() {},
     mounted: function() {
         document.getElementsByName("city")[0].selectedIndex = 27;
-        this.cityIndex = 27;
+        this.cityChanged();
     }
 });

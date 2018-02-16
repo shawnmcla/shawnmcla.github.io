@@ -8,10 +8,20 @@ b {
     font-weight: bold;
 }
 
+a {
+    text-decoration: none;
+}
+
 .content {
     position: relative;
-    width: 1440px;
+    width: 100%;
+    min-width: 1440px;
     height: 100%;
+    margin: 0 auto;
+}
+
+.content-wrapper {
+    width: 980px;
     margin: 0 auto;
 }
 
@@ -57,6 +67,7 @@ select {
 .btn-warning {
     background: #FFF;
     border: 1px solid #CCCCCC;
+    box-sizing: border-box;
     color: #666666;
 }
 
@@ -168,7 +179,7 @@ header .cta-banner .close .btn-close {
 
 .navigation .navbar li.active,
 .navigation .navbar li:hover {
-    height: 41px;
+    height: 42px;
     border-bottom: 5px solid white;
 }
 
@@ -232,15 +243,18 @@ header .cta-banner .close .btn-close {
 ***************************************/
 
 .jumbotron {
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 50.79%, rgba(0, 0, 0, 0.33) 100%), radial-gradient(452.00px at 50% 50%, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.06) 100%), url("../img/bg-home.png");
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 50.79%, rgba(0, 0, 0, 0.33) 100%), radial-gradient(452.00px at 50% 50%, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.06) 100%), url("../img/bg-home.jpg");
+    background-position: center;
     width: 100%;
     height: 900px;
 }
 
+.jumbotron-content {
+    margin: 0 auto;
+    transform: translateY(472px);
+}
+
 .jumbotron h1 {
-    position: absolute;
-    top: 642px;
-    left: 395px;
     font-size: 72px;
     line-height: normal;
     text-align: center;
@@ -248,33 +262,26 @@ header .cta-banner .close .btn-close {
 }
 
 .jumbotron h3 {
-    position: absolute;
-    width: 374px;
-    height: 30px;
-    left: 534px;
-    top: 732px;
     font-weight: 500;
-    line-height: normal;
+    position: relative;
+    top: -20px;
     font-size: 18px;
     text-align: center;
 }
 
 .jumbotron .btn-initiate {
-    position: absolute;
-    left: 602px;
-    top: 777px;
+    margin: 0 auto;
 }
 
 .jumbotron .arrow {
-    position: absolute;
+    margin: 0 auto;
     width: 48px;
     height: 48px;
-    left: 696px;
-    top: 996px;
+    transform: translateY(169px);
     color: #FFF;
     font-size: 48px;
     text-align: center;
-    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    text-shadow: 0px 4px 4px rgba(230, 61, 61, 0.25);
 }
 
 .btn-initiate {
@@ -295,21 +302,27 @@ header .cta-banner .close .btn-close {
     height: 329px;
 }
 
-.breadcrumbs ul {
+.breadcrumbs {
     font-size: 12px;
-    position: relative;
-    left: 232px;
-    top: 19px;
     color: #3D3948;
+    height: 50px;
+}
+
+.breadcrumbs ul {
+    position: relative;
+    top: 19px;
 }
 
 .breadcrumbs ul a {
     text-decoration: none;
-    color: #EE282F;
 }
 
 .breadcrumbs li {
     display: inline-block;
+}
+
+.breadcrumbs li a:hover {
+    color: #EE282F;
 }
 
 .breadcrumbs .arrow {
@@ -317,12 +330,20 @@ header .cta-banner .close .btn-close {
     margin: 0 10px;
 }
 
-.breadcrumbs li.home a {
-    color: #3D3948;
+.breadcrumbs .breadcrumbs-share {
+    float: right;
+}
+
+.breadcrumbs .breadcrumbs-share .icon {
+    display: inline-block;
+    position: relative;
+    left: 5px;
+    top: 1px;
 }
 
 .instructions .content {
-    position: relative;
+    margin: 0 auto;
+    width: 936px;
 }
 
 .instructions .numbers {
@@ -416,19 +437,18 @@ header .cta-banner .close .btn-close {
 }
 
 .initiate {
-    width: 1440px;
+    width: 100%;
     height: 344px;
     background: url("../img/bg-edgard-gradient.png");
 }
 
 .initiate a {
-    position: relative;
-    top: 148px;
-    left: 562px;
     text-decoration: none;
 }
 
 .initiate .btn-initiate {
+    margin: 0 auto;
+    transform: translateY(148px);
     background: #FFF;
     font-size: 36px;
     text-align: center;
@@ -442,10 +462,133 @@ header .cta-banner .close .btn-close {
     width: 100%;
     height: 400px;
     margin-top: -2px;
+    background: url("../img/forfaits2.png");
+    background-position: center;
+}
+
+.featured-bundles .wrapper {
+    position: relative;
+}
+
+.featured-bundles .prev,
+.featured-bundles .next {
+    font-size: 48px;
+    color: rgba(255, 255, 255, 0.5);
+    position: absolute;
+    top: 176px;
+    cursor: pointer;
+}
+
+.featured-bundles .prev:hover,
+.featured-bundles .next:hover {
+    color: #FFFFFF;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.featured-bundles .prev {
+    left: 20px;
+}
+
+.featured-bundles .next {
+    right: 20px;
+}
+
+.featured-bundles .info-wrapper {
+    position: relative;
+    width: 980px;
+    height: 400px;
+    margin: 0 auto;
+    right: 0px;
+}
+
+.featured-bundles .info {
+    position: absolute;
+    right: 0px;
+    top: 50px;
+    width: 478px;
+    height: 350px;
+    text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.5);
+}
+
+.featured-bundles .btn-category {
+    color: #FFF;
+    background: #EE282F;
+    font-size: 12px;
+    line-height: 24px;
+    width: 95px;
+    height: 24px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+.featured-bundles .btn-book-bundle {
+    background: none;
+    width: 228px;
+    height: 36px;
+    line-height: 36px;
+    font-size: 14px;
+    border: 1px solid #FFFFFF;
+    box-sizing: border-box;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 109px;
+}
+
+.featured-bundles .btn-category a {
+    text-decoration: none;
+    color: #FFF;
+}
+
+.featured-bundles .info h1 {
+    font-style: normal;
+    font-weight: normal;
+    line-height: normal;
+    font-size: 36px;
+    color: #FFFFFF;
+    position: absolute;
+    top: 24px;
+}
+
+.featured-bundles .info h2 {
+    font-style: normal;
+    font-weight: normal;
+    line-height: normal;
+    font-size: 24px;
+    color: #FFFFFF;
+    position: absolute;
+    top: 68px;
+}
+
+.featured-bundles .info p {
+    font-style: normal;
+    font-weight: normal;
+    line-height: 24px;
+    font-size: 18px;
+    color: #FFFFFF;
+    position: absolute;
+    top: 110px;
+}
+
+.featured-bundles-slideshow {
+    width: 100%;
+    height: 596px;
+}
+
+.featured-bundles-slideshow .slideshow-wrapper {
+    width: 100%;
+    margin: 0 auto;
 }
 
 footer {
     position: relative;
+}
+
+footer .footer-content {
+    position: relative;
+    width: 980px;
+    margin: 0 auto;
+    height: 100%;
 }
 
 footer .main {
@@ -456,7 +599,6 @@ footer .main {
 
 footer .main .left {
     position: absolute;
-    left: 232px;
     top: 50px;
     width: 140px;
 }
@@ -485,13 +627,13 @@ footer .main .social-icon:last-child {
 
 footer .main .center {
     position: absolute;
-    left: 564px;
+    left: 332px;
     top: 50px;
 }
 
 footer .main .right {
     position: absolute;
-    left: 896px;
+    left: 664px;
     top: 50px;
 }
 
@@ -577,7 +719,6 @@ footer .bottom {
 
 footer .bottom .links {
     position: relative;
-    left: 233px;
     top: 20px;
 }
 
@@ -592,6 +733,10 @@ footer .bottom .logo {
     top: 52px;
 }
 
+footer .footer-content {
+    margin: 0 auto;
+}
+
 
 /**************************************
             BODY CONTENT (CALENDAR)
@@ -601,8 +746,6 @@ footer .bottom .logo {
     color: #3D3948;
     position: relative;
     height: 1200px;
-    left: 233px;
-    top: 50px;
 }
 
 .booking-view .header h1 {
@@ -627,6 +770,60 @@ footer .bottom .logo {
 .booking-view .calendar-view {
     position: relative;
     top: 40px;
+}
+
+.booking-view .calendar-flight {
+    position: absolute;
+    width: 117px;
+    height: 14px;
+    top: 30px;
+    margin-left: 8px;
+    border-radius: 3px;
+    font-size: 10px;
+    background: #2F80ED;
+    color: #FFF;
+}
+
+.booking-view .calendar-flight.full {
+    background: #68B928;
+}
+
+.booking-view .calendar-flight.almost-full {
+    background: #F2C94C;
+}
+
+.booking-view .calendar-flight.first {
+    position: absolute;
+    top: 30px;
+    height: 28px;
+}
+
+.booking-view .calendar-flight div {
+    display: inline-block;
+    position: absolute;
+    font-weight: normal;
+}
+
+.booking-view .calendar-flight .locations {
+    font-weight: bold;
+    line-height: 12px;
+    top: 0px;
+    left: 5px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 100%;
+}
+
+.booking-view .calendar-flight .passengerCount {
+    bottom: 0px;
+    left: 5px;
+    line-height: 14px;
+}
+
+.booking-view .calendar-flight .infoBtn {
+    bottom: 1px;
+    right: 2px;
 }
 
 .calendar-view .calendar {
@@ -675,6 +872,7 @@ footer .bottom .logo {
 .calendar .cal td {
     width: 139px;
     height: 112px;
+    max-height: 112px;
     box-sizing: border-box;
     position: relative;
     cursor: pointer;
@@ -701,9 +899,8 @@ footer .bottom .logo {
 
 .calendar .cal .col1,
 .calendar .cal .col7 {
-    background: #EBEBEB;
+    background: rgba(235, 235, 235, 0.2);
     mix-blend-mode: normal;
-    opacity: 0.2;
 }
 
 .calendar .cal td:hover,
@@ -850,12 +1047,35 @@ footer .bottom .logo {
 .popup .departure-time {
     position: absolute;
     top: 37px;
-    right: 10px;
+    right: 5px;
+    color: #2F80ED;
 }
 
-.popup .departure-time input,
+.popup select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 0.1px;
+    text-overflow: '';
+}
+
+.time-picker-icon {
+    background: #F6F6F6;
+    height: 22px;
+    width: 20px;
+    font-size: 12px;
+    line-height: 24px;
+    text-align: center;
+    position: absolute;
+    right: 10px;
+    top: 198px;
+    box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+}
+
+.popup select.departure-time,
+.popup .departure-time,
 .popup .returnTime {
-    width: 60px;
+    width: 62px;
     height: 24px;
     font-size: 12px;
     color: #2F80ED;
@@ -885,7 +1105,8 @@ footer .bottom .logo {
 }
 
 .popup .destination-dropdown {
-    width: 240px;
+    width: 245px;
+    height: 24px;
 }
 
 .popup .destination-location input {
@@ -997,13 +1218,6 @@ footer .bottom .logo {
     left: 91px;
 }
 
-.popup .btn-join-flight {
-    position: absolute;
-    width: 88px;
-    height: 24px;
-    left: 162px;
-}
-
 .popup.popup-initiate .btn-cancel {
     left: 80px;
     bottom: 0px;
@@ -1017,6 +1231,18 @@ footer .bottom .logo {
     left: 151px;
 }
 
+.popup .btn-join-flight {
+    position: absolute;
+    width: 88px;
+    height: 24px;
+    right: 10px;
+    bottom: 0px;
+}
+
+.popup .btn-cancel-join {
+    left: 91px !important;
+}
+
 
 /**************************************
             BODY CONTENT (RESERVE)
@@ -1024,7 +1250,6 @@ footer .bottom .logo {
 
 .booking-view .reserve {
     position: absolute;
-    left: 233px;
     width: 525px;
     min-height: 800px;
     background: #FFFFFF;
@@ -1044,7 +1269,10 @@ footer .bottom .logo {
     color: #3D3948;
     margin-top: 40px;
     margin-bottom: 10px;
-    padding-left: 233px;
+}
+
+.booking-step {
+    padding-left: 203px;
 }
 
 .reserve a {
@@ -1114,6 +1342,7 @@ footer .bottom .logo {
     line-height: 40px;
     font-weight: normal;
     font-size: 14px;
+    margin-top: 5px;
 }
 
 .reserve .departure-time {
@@ -1235,6 +1464,10 @@ footer .bottom .logo {
     margin: 5px 0;
 }
 
+.reserve .passengers .passenger-confirmed {
+    color: #666666;
+}
+
 .reserve .passengers .passenger .remove-passenger {
     position: absolute;
     font-size: 14px;
@@ -1335,7 +1568,6 @@ footer .bottom .logo {
     font-size: 14px;
     color: #333333;
     position: relative;
-    left: 233px;
     top: -20px;
 }
 
@@ -1368,7 +1600,7 @@ footer .bottom .logo {
 .bundles-content {
     color: #000;
     width: 973px;
-    margin: 20px auto 40px auto;
+    margin-bottom: 50px;
     height: auto;
 }
 
@@ -1392,7 +1624,7 @@ footer .bottom .logo {
 .plane-info {
     color: #000;
     width: 973px;
-    margin: 20px auto;
+    margin-bottom: 50px;
     height: auto;
 }
 
@@ -1442,26 +1674,18 @@ footer .bottom .logo {
  *    Edgard
  ******************/
 
-.breadcrumbs.grey {
-    background: #F2F2F2;
-    height: 40px;
-    vertical-align: middle;
-    line-height: 40px;
-}
-
 .breadcrumbs.grey ul {
     top: 0px;
 }
 
-.breadcrumbs.grey ul a {
+.breadcrumbs * a {
     color: #000;
 }
 
 .about {
     color: #000;
     width: 973px;
-    margin: 20px auto;
-    height: 1800px;
+    margin-bottom: 50px;
 }
 
 .about h1,
@@ -1510,7 +1734,6 @@ footer .bottom .logo {
 .about p {
     margin: 10px 0;
     text-indent: 20px;
-    line-height: 23px
 }
 
 .about .image {
@@ -1538,7 +1761,7 @@ footer .bottom .logo {
 .contact-content {
     color: #000;
     width: 973px;
-    margin: 20px auto;
+    margin-bottom: 50px;
     height: auto;
 }
 
