@@ -217,14 +217,14 @@ mock_flight.departureDate = new Date(mock_flight.departureDate);
 mock_flight.returnDate = new Date(mock_flight.returnDate);
 mock_flight.isNewFlight = false;
 //MOCK_DATA.flights.push(new Flight("CYVO", "CYUL", new Date(), new Date()));
-MOCK_DATA.flights.push(mock_flight);
-let flight = new Flight(MOCK_DATA.airports[27], MOCK_DATA.airports[29], new Date(2018, 01, 22), "12:45", new Date(2018, 01, 27), "0:00", 9, false);
+//MOCK_DATA.flights.push(mock_flight);
+let flight = new Flight(MOCK_DATA.airports[27], MOCK_DATA.airports[18], new Date(2018, 01, 23), "08:15", new Date(2018, 01, 23), "23:00", 9, false);
 flight.passengers = MOCK_DATA.passengers.slice(0);
 MOCK_DATA.flights.push(flight);
-flight = new Flight(MOCK_DATA.airports[27], MOCK_DATA.airports[2], new Date(2018, 01, 19), "12:45", new Date(2018, 01, 27), "0:00", 9, false);
+flight = new Flight(MOCK_DATA.airports[27], MOCK_DATA.airports[23], new Date(2018, 01, 19), "01:00", new Date(2018, 01, 19), "21:00", 9, false);
 flight.passengers = MOCK_DATA.passengers.slice(2);
 MOCK_DATA.flights.push(flight);
-flight = new Flight(MOCK_DATA.airports[27], MOCK_DATA.airports[0], new Date(2018, 01, 19), "13:45", new Date(2018, 01, 27), "0:00", 9, false);
+flight = new Flight(MOCK_DATA.airports[27], MOCK_DATA.airports[0], new Date(2018, 01, 19), "03:45", new Date(2018, 01, 19), "20:00", 9, false);
 flight.passengers = MOCK_DATA.passengers.slice(5);
 MOCK_DATA.flights.push(flight);
 

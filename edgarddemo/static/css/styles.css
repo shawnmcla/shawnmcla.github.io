@@ -476,8 +476,19 @@ header .cta-banner .close .btn-close {
     width: 100%;
     height: 400px;
     margin-top: -2px;
-    background: url("../img/forfaits2.png");
     background-position: center;
+}
+
+@media screen and (max-width: 1800px) {
+    .featured-bundles {
+        background: url("../img/bundle.png");
+    }
+}
+
+@media screen and (min-width: 1801px) {
+    .featured-bundles {
+        background: url("../img/bundle-lg.png");
+    }
 }
 
 .featured-bundles .wrapper {
@@ -586,12 +597,17 @@ header .cta-banner .close .btn-close {
 
 .featured-bundles-slideshow {
     width: 100%;
-    height: 596px;
+    height: 496px;
 }
 
 .featured-bundles-slideshow .slideshow-wrapper {
-    width: 100%;
+    width: 1440px;
+    height: 496px;
     margin: 0 auto;
+}
+
+.featured-bundles-slideshow img {
+    width: 100%;
 }
 
 footer {
@@ -796,6 +812,7 @@ footer .footer-content {
     font-size: 10px;
     background: #2F80ED;
     color: #FFF;
+    padding-right: 10px;
 }
 
 .booking-view .calendar-flight.full {
@@ -1933,6 +1950,90 @@ footer .footer-content {
     right: 0;
     background: #000;
     opacity: 0.6;
+}
+
+
+/** Service concierge **/
+
+.concierge-content {
+    color: #000;
+}
+
+.concierge-content h1 {
+    font-size: 48px;
+    height: 80px;
+}
+
+.concierge-content p {
+    font-size: 18px;
+    line-height: normal;
+}
+
+.concierge-content .concierge-form {
+    position: relative;
+    width: 525px;
+    height: 392px;
+    border: 1px solid #DBDBDB;
+    box-sizing: border-box;
+    border-radius: 5px;
+    font-size: 14px;
+    padding: 20px;
+    margin: 0 auto 50px auto;
+}
+
+.concierge-form select,
+.concierge-form textarea {
+    font-family: 'Mukta', sans-serif;
+    font-size: 14px;
+    width: 485px;
+    background: #F5F5F5;
+    border: 1px solid #DBDBDB;
+    box-sizing: border-box;
+    box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    margin-bottom: 20px;
+    padding: 8px 10px;
+}
+
+.concierge-comments {
+    height: 200px;
+    resize: none;
+}
+
+.concierge-form .btn {
+    position: absolute;
+}
+
+.concierge-form .btn {
+    display: inline-block;
+    font-size: 18px;
+    line-height: 40px;
+}
+
+.concierge-form .btn-success {
+    width: 117px;
+    right: 20px;
+}
+
+.concierge-form .btn-warning {
+    width: 100px;
+    right: 147px;
+}
+
+.concierge-form .form-thanks {
+    text-align: center;
+}
+
+.concierge-form .form-thanks .checkmark {
+    color: #48A102;
+    font-size: 128px;
+}
+
+.concierge-form .form-thanks a {
+    color: #3d3d3d;
+    position: relative;
+    top: 40px;
+    text-decoration: underline;
 }
 
 
