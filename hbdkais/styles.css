@@ -1,0 +1,23 @@
+body {
+    background: #303030;
+    color: #22ff22;
+    font-family: 'Ubuntu Mono', monospace;
+    font-size: 28px;
+}
+
+#content {
+    width: 100%;
+    padding: 20px 20px;
+    box-sizing: border-box;
+    height: 100%;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: url("./scanlines.jpg");
+    opacity: 0.12;
+}
