@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" style="width: 100%;">
+
+<head>
+    <meta charset=" UTF-8 ">
+    <meta name="viewport " content="width=device-width, initial-scale=1.0 ">
+    <meta http-equiv="X-UA-Compatible " content="ie=edge ">
+    <title>VERY COOL BUTTON APP 21ST CENTURY</title>
+    <style>
+        .particle {
+            width: 10px;
+            height: 10px;
+            border-radius: 100%;
+            position: fixed;
+        }
+    </style>
+</head>
+
+<body style="width: 100%;" onbeforeunload="bye">
+
+    <div style="width: 80%; margin: 100px auto; text-align: center; font-size: 72px;">
+        <button onclick="updateDisplay()" style="font-size:48px;">PRESS ME DADDY</button>
+        <h1 id="textDisplay"></h1>
+
+    </div>
+    <script>
+        function ran(max) {
+            return Math.floor(Math.random() * Math.floor(max));
+        }
+
+        let btn = document.getElementsByTagName("button")[0];
+        let fetti = [];
+
+        function updateDisplay() {
+            document.getElementById("textDisplay").innerText = "Hello, bitchez. "
+            document.body.innerHTML = document.body.innerHTML += `<iframe width="560" height="315" src="https://www.youtube.com/embed/QK5sGvtiLiQ?rel=0&amp;controls=0&amp;autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe><iframe width="560" height="315" src="https://www.youtube.com/embed/-YCN-a0NsNk?rel=0&amp;controls=0&amp;autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe><iframe width="560" height="315" src="https://www.youtube.com/embed/-YCN-a0NsNk?rel=0&amp;controls=0&amp;autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`
+            requestAnimationFrame(updateConfetti);
+            confirm("what is a man but a goblin>?>???");
+            document.getElementById("textDisplay").innerText += "GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN GOBLIN "
+        }
+
+        function spawnConfetti() {
+            let conf = document.createElement("div");
+            conf.style.background = `rgba(${ran(255)},${ran(255)},${ran(255)}, 1.0)`;
+            conf.style.left = ran(document.body.clientWidth) + "px";
+            conf.style.top = 5 + "px";
+            conf.classList.add("particle");
+            document.body.appendChild(conf);
+            btn.style.width = ran(500) + "px";
+            fetti.push(conf);
+        }
+
+        function updateConfetti() {
+            if (fetti.length < 500) spawnConfetti();
+            fetti.forEach(c => {
+                c.style.top = parseInt(c.style.top.split("px")[0]) + 2 + "px";
+                c.style.left = parseInt(c.style.left.split("px")[0]) + "px";
+            });
+            requestAnimationFrame(updateConfetti);
+            document.body.style.background = `rgba(${ran(255)},${ran(255)},${ran(255)}, 1.0)`;
+
+        }
+
+        function bye() {
+            window.alert("NO");
+        }
+
+        (function() {
+            btn = document.getElementsByTagName("button")[0];
+
+        })();
+    </script>
+</body>
+
+</html>
