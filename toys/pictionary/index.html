@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>PICTIONARY</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+
+<body>
+    <!--
+    <select id="categorySelect">
+        <option value="objects">Objects</option>
+        <option value="animals">Animals</option>
+        <option value="people">People</option>
+        <option value="custom">Custom</option>
+    </select>
+    <textarea id="customWords" placeholder="Enter custom word list here, seperated by new lines."></textarea>
+    -->
+    <div class="UI">
+        <div>Your word is:
+            <div class="word" id="wordDisplay"></div>
+        </div>
+
+        <div>Time remaining:
+            <div id="timerDisplay" class="timer green"></div>
+        </div>
+
+        <div class="options">
+            Timer: <input id="timerInput" type="number" min="0" max="1000" value="60" />
+            <button id="btnWord">Get Word</button>
+            <button id="btnGo">Start</button>
+            <button id="btnStop">Stop</button>
+        </div>
+    </div>
+    <script src="./words.js"></script>
+    <script src="./onary.js"></script>
+</body>
+
+</html>
