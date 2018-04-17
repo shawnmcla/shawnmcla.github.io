@@ -32,7 +32,7 @@ function getWord() {
         wordList.push(...usedList);
         usedList.length = 0;
     }
-    let word = wordList.splice(getRandom(wordList), 1)[0];
+    let word = wordList.splice(getRandom(wordList.length), 1)[0];
     usedList.push(word);
     return word;
 }
