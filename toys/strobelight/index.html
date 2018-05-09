@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>WEEWOOWEEWOO</title>
+    <style>
+        body {
+            background: white;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        setInterval(function() {
+            document.body.style.background = document.body.style.background.split(" ")[0] == "white" ? "black" : "white";
+            console.log('tick');
+        }, 150);
+    </script>
+</body>
+
+</html>
